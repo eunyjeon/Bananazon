@@ -25,12 +25,21 @@ const Product = db.define("product", {
       isInt: true,
     },
     //not completly confident this setter will work
+<<<<<<< HEAD
     // set: function () {
     //   return new Intl.NumberFormat('en-US', {
     //     syle: 'currency',
     //     currency: 'USD',
     //   });
     // },
+=======
+    set: function () {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+    },
+>>>>>>> 80df53e66235bd88209926a059758457f7263e15
   },
   description: {
     type: Sequelize.TEXT,
