@@ -35,9 +35,11 @@ const User = db.define('user', {
     type: Sequelize.STRING,
   },
   phoneNumber: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
+      max: 11,
+      min: 10,
       isNumeric: true,
     },
   },
@@ -46,7 +48,7 @@ const User = db.define('user', {
     allowNull: false,
   },
   paymentInfo: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
       isCreditCard: true,
