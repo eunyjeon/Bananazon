@@ -271,4 +271,4 @@ const userSeed = [
   }
 ];
 
-module.exports = userSeed;
+module.exports = userSeed 
