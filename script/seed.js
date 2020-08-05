@@ -10,7 +10,8 @@ async function seed() {
   const users = await Promise.all([User.bulkCreate(userSeed)]);
   const products = await Promise.all([Product.bulkCreate(productSeed)]);
 
-  console.log(`seeded ${users.length} users`);
+  console.log(`seeded users`);
+  console.log(`seeded products`);
   console.log(`seeded successfully`);
 }
 
