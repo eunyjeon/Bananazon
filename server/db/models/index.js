@@ -4,7 +4,7 @@
 const db = require("../db");
 const User = require("./user");
 const Order = require("./order");
-const OrderItem = require("./orderItem")
+const OrderItem = require("./orderItem");
 const Review = require("./review");
 const Product = require("./product");
 
@@ -14,8 +14,8 @@ const Product = require("./product");
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Order.belongsToMany(Product, { through: "OrderItem" });
-Product.belongsToMany(Order, { through: "OrderItem" });
+Order.belongsToMany(Product, { through: "orderItem" });
+Product.belongsToMany(Order, { through: "orderItem" });
 
 User.hasMany(Review);
 Review.belongsTo(User);
