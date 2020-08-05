@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -15,7 +15,7 @@ const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.TEXT,
     defaultValue:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6D09dkYwqpKaGOF0-kA2ytnLGQW7Iaotl9A&usqp=CAU',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6D09dkYwqpKaGOF0-kA2ytnLGQW7Iaotl9A&usqp=CAU",
   },
   price: {
     type: Sequelize.INTEGER,
@@ -25,18 +25,19 @@ const Product = db.define('product', {
       isInt: true,
     },
     //not completly confident this setter will work
-    set: function () {
-      return new Intl.NumberFormat('en-US', {
-        syle: 'currency',
-        currency: 'USD',
-      });
-    },
+    // set: function () {
+    //   return new Intl.NumberFormat('en-US', {
+    //     syle: 'currency',
+    //     currency: 'USD',
+    //   });
+    // },
   },
   description: {
     type: Sequelize.TEXT,
   },
   quantities: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
     validate: {
       min: 0,
     },
