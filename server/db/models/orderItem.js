@@ -17,9 +17,9 @@ const OrderItem = db.define("orderItem", {
   }
 });
 
-OrderItem.prototype.setSubTotal = function () {
-  const itemPrice = Product.findById(this.productId).price
-  this.subtotal = itemPrice * this.quantity
-}
+// OrderItem.prototype.setSubTotal = function () {
+//   const itemPrice = Product.findById(this.productId).price
+//   this.subtotal = itemPrice * this.quantity
+// }
 
 module.exports = OrderItem;

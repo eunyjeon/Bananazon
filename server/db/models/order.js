@@ -17,6 +17,6 @@ const Order = db.define("order", {
   },
 });
 
-Order.prototype.setTotalPrice = function () {}
+// Order.prototype.setTotalPrice = function () {}
 
 module.exports = Order;
