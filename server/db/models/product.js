@@ -6,51 +6,42 @@ const Product = db.define("product", {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
-    },
+      notEmpty: true
+    }
   },
   category: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   imageUrl: {
     type: Sequelize.TEXT,
     defaultValue:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6D09dkYwqpKaGOF0-kA2ytnLGQW7Iaotl9A&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6D09dkYwqpKaGOF0-kA2ytnLGQW7Iaotl9A&usqp=CAU"
   },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0,
-      isInt: true,
-    },
+      isInt: true
+    }
     //not completly confident this setter will work
-<<<<<<< HEAD
     // set: function () {
     //   return new Intl.NumberFormat('en-US', {
-    //     syle: 'currency',
+    //     style: 'currency',
     //     currency: 'USD',
     //   });
     // },
-=======
-    set: function () {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      });
-    },
->>>>>>> 80df53e66235bd88209926a059758457f7263e15
   },
   description: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
   },
   quantities: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
-      min: 0,
-    },
-  },
+      min: 0
+    }
+  }
 });
 
 module.exports = Product;
