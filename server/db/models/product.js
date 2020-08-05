@@ -27,7 +27,7 @@ const Product = db.define('product', {
     //not completly confident this setter will work
     set: function () {
       return new Intl.NumberFormat('en-US', {
-        syle: 'currency',
+        style: 'currency',
         currency: 'USD',
       });
     },
