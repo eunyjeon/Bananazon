@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSingleProductThunk } from '../store/singleProduct';
+import {
+  getSingleProductThunk,
+  increaseQuantity,
+  decreaseQuantity,
+} from '../store/singleProduct';
 
 export class SingleProduct extends Component {
+  constructor() {
+    super();
+    this.increase = this.increase.bind(this);
+    this.decrease = this.decrease.bind(this);
+  }
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
   }
-
+  increase() {
+    this.props.increaseQuantity(this.props.match.params.id);
+  }
+  decrease() {
+    this.props.decreaseQuantity(this.props.match.params.id);
+  }
   render() {
     console.log('WHAT IS THIS PROPS', this.props);
     const {
@@ -28,8 +42,12 @@ export class SingleProduct extends Component {
         </div>
         <div>
           <p>Quantity: {quantities}</p>
-          <button type="button">+</button>
-          <button type="button">-</button>
+          <button type="button" size="small" onClick={this.increase}>
+            +
+          </button>
+          <button type="button" size="small" onClick={this.decrease}>
+            -
+          </button>
           <button type="submit">Add to Cart</button>
         </div>
       </div>
@@ -42,5 +60,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
+  increaseQuantity: (id) => dispatch(increaseQuantity(id)),
+  decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
