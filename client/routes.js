@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Login, Signup, UserHome } from './components';
-import { me } from './store';
-import SingleProduct from './components/SingleProduct';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Login, Signup, UserHome } from "./components";
+import { me } from "./store";
+import SingleProduct from "./components/SingleProduct";
+import AllProduct from "./components/AllProduct";
 
 /**
  * COMPONENT
@@ -18,10 +19,15 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
+      //   <Switch>
+      //     <Route path="/products" component={AllProduct} />
+      //   </Switch>
+      // );
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        {/* <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} /> */}
+        <Route exact path="/products" component={AllProduct} />
         <Route path="/products/:id" component={SingleProduct} />
         {isLoggedIn && (
           <Switch>

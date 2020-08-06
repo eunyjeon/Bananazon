@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getSingleProductThunk } from '../store/singleProduct';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getSingleProductThunk } from "../store/singleProduct";
 
 export class SingleProduct extends Component {
   componentDidMount() {
@@ -8,7 +8,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    console.log('WHAT IS THIS PROPS', this.props);
+    console.log("WHAT IS THIS PROPS", this.props);
     const name = this.props.product.name;
     return (
       <div>
