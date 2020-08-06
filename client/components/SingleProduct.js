@@ -3,9 +3,22 @@ import { connect } from "react-redux";
 import { getSingleProductThunk } from "../store/singleProduct";
 
 export class SingleProduct extends Component {
+  componentDidMount() {
+    this.props.getSingleProduct(this.props.match.params.id);
+  }
+
   render() {
-    console.log("single");
-    return <div> Singles</div>;
+    console.log("WHAT IS THIS PROPS", this.props);
+    const name = this.props.product.name;
+    return (
+      <div>
+        <div>
+          hello
+          {name}
+          {/* <img src={this.product.imageUrl} /> */}
+        </div>
+      </div>
+    );
   }
 }
 
