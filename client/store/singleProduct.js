@@ -10,6 +10,7 @@ const getSingleProduct = (product) => ({
 export const getSingleProductThunk = (id) => {
   return async (dispatch) => {
     try {
+      console.log('THIS IS THE STORE')
       const {data} = await axios.get(`/api/products/${id}`)
       dispatch(getSingleProduct(data))
     } catch (error) {
