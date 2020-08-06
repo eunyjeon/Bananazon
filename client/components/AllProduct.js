@@ -1,37 +1,24 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import { allProductThunk } from '../store/allProduct'
+import React from "react";
+import { connect } from "react-redux";
+import { allProductThunk } from "../store/allProduct";
 
-class AllProduct extends React.Component {
+export class AllProduct extends React.Component {
   componentDidMount() {
-    this.props.getAllProducts()
+    this.props.getAllProducts();
   }
 
   render() {
-    return (
-      <div>
-        <p>
-          `${this.props}`
-        </p>
-        {/* <h2 className="section-title">Candies</h2>
-        <ul className="container">
-          {this.props.candies.map(candy => (
-            <div className="card" key={candy.id}>
-              <Candy candy={candy} />
-            </div>
-          ))}
-        </ul> */}
-      </div>
-    )
+    console.log(this.props);
+    return <div>Hello!</div>;
   }
 }
 
 const mapStateToProps = (state) => ({
-  items: state.allProduct
+  products: state.products,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getAllProducts: () => dispatch(allProductThunk())
+  getAllProducts: () => dispatch(allProductThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProduct);
