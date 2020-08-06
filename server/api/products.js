@@ -19,5 +19,25 @@ productRouter.get('/:id', async (req, res, next) => {
     next(error);
   }
 });
+productRouter.put('/:id/increase', async (req, res, next) => {
+  try {
+    let quantity = await Product.findByPk(req.params.id);
+    quantity.quantities++;
+    await quantity.save();
+    res.json(quantity);
+  } catch (error) {
+    next(error);
+  }
+});
+productRouter.put('/:id/decrease', async (req, res, next) => {
+  try {
+    let quantity = await Product.findByPk(req.params.id);
+    quantity.quantities--;
+    await quantity.save();
+    res.json(quantity);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = productRouter;
