@@ -38,7 +38,10 @@ export class SingleProduct extends Component {
     });
   }
   render() {
+<<<<<<< HEAD
     console.log("WHAT IS THIS PROPS", this.props);
+=======
+>>>>>>> 6d08be9f288ef64baf44fa3059a71c446294f17b
     const {
       name,
       imageUrl,
