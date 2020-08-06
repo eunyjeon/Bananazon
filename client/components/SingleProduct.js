@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getSingleProductThunk } from "../store/singleProduct";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getSingleProductThunk } from '../store/singleProduct';
 
 export class SingleProduct extends Component {
   componentDidMount() {
@@ -8,14 +8,29 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    console.log("WHAT IS THIS PROPS", this.props);
-    const name = this.props.product.name;
+    console.log('WHAT IS THIS PROPS', this.props);
+    const {
+      name,
+      imageUrl,
+      description,
+      category,
+      price,
+      quantities,
+    } = this.props.product;
     return (
       <div>
         <div>
-          hello
-          {name}
-          {/* <img src={this.product.imageUrl} /> */}
+          <h2>{name}</h2>
+          <img src={imageUrl} />
+          <p>Price: {price}</p>
+          <p>Category: {category}</p>
+          <p>Product Info: {description}</p>
+        </div>
+        <div>
+          <p>Quantity: {quantities}</p>
+          <button type="button">+</button>
+          <button type="button">-</button>
+          <button type="submit">Add to Cart</button>
         </div>
       </div>
     );
