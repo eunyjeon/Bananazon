@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Login, Signup, UserHome } from "./components";
 import { me } from "./store";
 import SingleProduct from "./components/SingleProduct";
+import AllProduct from "./components/AllProduct";
 
 /**
  * COMPONENT
