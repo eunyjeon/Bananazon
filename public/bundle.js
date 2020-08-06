@@ -155,14 +155,10 @@ var SingleProduct = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(SingleProduct);
 
-  function SingleProduct(props) {
-    var _this;
-
+  function SingleProduct() {
     _classCallCheck(this, SingleProduct);
 
-    _this = _super.call(this, props);
-    console.log(props);
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(SingleProduct, [{
@@ -173,9 +169,9 @@ var SingleProduct = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('WHAT IS THIS PROPS', this.props); // const name = this.props.product.name;
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "hello"));
+      console.log('WHAT IS THIS PROPS', this.props);
+      var name = this.props.product.name;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "hello", name));
     }
   }]);
 
@@ -577,7 +573,7 @@ var Routes = /*#__PURE__*/function (_Component) {
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/products/:id",
-        component: _components_SingleProduct__WEBPACK_IMPORTED_MODULE_6__["SingleProduct"]
+        component: _components_SingleProduct__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/home",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
