@@ -23,11 +23,11 @@ export const getSingleProductThunk = (id) => {
   };
 };
 export const increaseQuantity = (id) => async (dispatch) => {
-  const { data } = await axios.put(`/api/products/${id}`);
+  const { data } = await axios.put(`/api/products/${id}/increase`);
   dispatch(updateQuantity(data));
 };
 export const decreaseQuantity = (id) => async (dispatch) => {
-  const { data } = await axios.put(`/api/products/${id}`);
+  const { data } = await axios.put(`/api/products/${id}/decrease`);
   dispatch(updateQuantity(data));
 };
 //
@@ -38,7 +38,7 @@ export default function singleProductReducer(state = initialState, action) {
     case GET_SINGLE_PRODUCT:
       return action.product;
     case UPDATE_QUANTITY:
-      return { ...state, product: action.product };
+      return action.product;
     default:
       return state;
   }
