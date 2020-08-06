@@ -8,8 +8,23 @@ export class AllProduct extends React.Component {
   }
 
   render() {
+    const products = this.props.products
     console.log(this.props);
-    return <div>Hello!</div>;
+
+    return (
+      <div>
+        {
+          products.map(product => (
+            <div key={product.id} className="product-card">
+              <h2>Product : {product.name}</h2>
+              <img src={product.imageUrl} />
+              <h3>Price : ${product.price}</h3>
+            </div>
+            )
+          )
+        }
+      </div>
+    )
   }
 }
 
@@ -22,3 +37,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProduct);
+
+
