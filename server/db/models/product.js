@@ -28,6 +28,10 @@ const Product = db.define('product', {
       const rawValue = this.getDataValue('price');
       return rawValue ? rawValue / 100 : null;
     },
+    set() {
+      const quantityVal = this.getDataValue('quantities');
+      console.log(quantityVal);
+    },
   },
   description: {
     type: Sequelize.TEXT,

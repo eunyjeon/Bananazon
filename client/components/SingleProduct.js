@@ -22,7 +22,6 @@ export class SingleProduct extends Component {
     this.props.decreaseQuantity(this.props.match.params.id);
   }
   render() {
-    console.log('WHAT IS THIS PROPS', this.props);
     const {
       name,
       imageUrl,
