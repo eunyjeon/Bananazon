@@ -10,7 +10,7 @@ productRouter.get('/', async (req, res, next) => {
   }
 });
 
-productRouter.get('/:id', async (req, res,next) => {
+productRouter.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const singleProduct = await Product.findByPk(id);
