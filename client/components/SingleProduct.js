@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   getSingleProductThunk,
   increaseQuantity,
   decreaseQuantity,
-} from "../store/singleProduct";
+} from '../store/singleProduct';
 
 export class SingleProduct extends Component {
   constructor() {
@@ -31,12 +31,14 @@ export class SingleProduct extends Component {
     this.getSubtotal();
   }
   getSubtotal() {
-    // initial render is NAN
-    // but the subtotal calculates after we click plus minus buttons
-    this.setState({
-      ...this.state,
-      subtotal: this.props.product.price * this.props.product.quantities,
-    });
+    if (!this.props.product.quantities || this.props.quantities === 0) {
+      return 0;
+    } else if (this.props.product.quantities) {
+      this.setState({
+        ...this.state,
+        subtotal: this.props.product.price * this.props.product.quantities,
+      });
+    }
   }
 
   addToCart() {}
@@ -69,16 +71,26 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
+<<<<<<< HEAD
 
           <button type="submit" onSubmit={this.addToCart}>
             Add to Cart
           </button>
+=======
+          <button type="submit">Add to Cart</button>
+>>>>>>> ad523d2eca16fef07b2a52c0b4a6cb4dcc6bd531
         </div>
       </div>
     );
   }
 }
-
+// on "addtocart" submit, we want to POST a request to database AND local storage, reset view, and
+// redirect to cart component - > this might eleminate the need to reset.
+// ^ see if our window.localstorage object has orderId, if NOT then we create an orderId and set it in the local storage
+// ^ use utility functions
+// ^ while checking, we need to update localState to quantity 0, rerendering the quantity view
+// Local state in SingleProduct for quantity, productId/info
+//
 const mapStateToProps = (state) => ({
   product: state.product,
 });

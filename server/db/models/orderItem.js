@@ -1,20 +1,20 @@
-const db = require("../db");
-const { Product } = require("./product")
-const Sequelize = require("sequelize");
+const db = require('../db');
+const { Product } = require('./product');
+const Sequelize = require('sequelize');
 
-const OrderItem = db.define("orderItem", {
+const OrderItem = db.define('orderItem', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1,
     validate: {
-      min: 1
-    }
+      min: 1,
+    },
   },
   subtotal: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
+  },
 });
 
 // OrderItem.prototype.setSubTotal = function () {
