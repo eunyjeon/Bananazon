@@ -13,7 +13,7 @@ orderRouter.post("/", async (req,res,next) => {
 
 orderRouter.put("/:orderId", async (req,res,next) => {
     try {
-        const updatingThisOrder = await findByPk(req.params.orderId)
+        const updatingThisOrder = await Order.findByPk(req.params.orderId)
         const newInfo = req.body;
         const updatedOrder = await updatingThisOrder.update(newInfo);
         updatedOrder.save();
