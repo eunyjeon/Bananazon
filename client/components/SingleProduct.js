@@ -15,6 +15,7 @@ export class SingleProduct extends Component {
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
@@ -37,6 +38,9 @@ export class SingleProduct extends Component {
       subtotal: this.props.product.price * this.props.product.quantities,
     });
   }
+
+  addToCart() {}
+
   render() {
     const {
       name,
@@ -66,7 +70,9 @@ export class SingleProduct extends Component {
             -
           </button>
 
-          <button type="submit">Add to Cart</button>
+          <button type="submit" onSubmit={this.addToCart}>
+            Add to Cart
+          </button>
         </div>
       </div>
     );
