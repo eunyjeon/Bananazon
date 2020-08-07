@@ -67,7 +67,6 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-
           <button type="submit">Add to Cart</button>
         </div>
       </div>
@@ -78,7 +77,9 @@ export class SingleProduct extends Component {
 // redirect to cart component - > this might eleminate the need to reset.
 // ^ see if our window.localstorage object has orderId, if NOT then we create an orderId and set it in the local storage
 // ^ use utility functions
+// ^ while checking, we need to update localState to quantity 0, rerendering the quantity view
 // Local state in SingleProduct for quantity, productId/info
+//
 const mapStateToProps = (state) => ({
   product: state.product,
 });
