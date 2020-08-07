@@ -1,6 +1,6 @@
 const productRouter = require('express').Router();
 const Product = require('../db/models/product');
-
+const OrderItem = require('../db/models/orderItem');
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll();
@@ -22,7 +22,11 @@ productRouter.get('/:id', async (req, res, next) => {
 productRouter.put('/:id/increase', async (req, res, next) => {
   try {
     let quantity = await Product.findByPk(req.params.id);
+    let subtotal = await OrderItem.findAll({
+      where: { productId: req.params.id },
+    });
     quantity.quantities++;
+
     await quantity.save();
     res.json(quantity);
   } catch (error) {
