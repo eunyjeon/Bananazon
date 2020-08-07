@@ -1,8 +1,8 @@
-const db = require("../db");
-const Sequelize = require("sequelize");
-const OrderItem = require("./orderItem");
+const db = require('../db');
+const Sequelize = require('sequelize');
+const OrderItem = require('./orderItem');
 
-const Order = db.define("order", {
+const Order = db.define('order', {
   isPaid: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -12,8 +12,8 @@ const Order = db.define("order", {
     },
     totalPrice: {
       type: Sequelize.INTEGER,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
 });
 
