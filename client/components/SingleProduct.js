@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   getSingleProductThunk,
   increaseQuantity,
@@ -21,6 +22,10 @@ export class SingleProduct extends Component {
     this.props.getSingleProduct(this.props.match.params.id);
     // we call this.getSubtotal when we refresh but
     this.getSubtotal();
+  }
+  addToCartHandler(event) {
+    console.log('Add To Cart Clicked!');
+    window.location.href = '/cart';
   }
   async increase() {
     await this.props.increaseQuantity(this.props.match.params.id);
@@ -71,7 +76,9 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <button type="submit">Add to Cart</button>
+          <button type="submit" onClick={this.addToCartHandler}>
+            Add To Cart
+          </button>
         </div>
       </div>
     );
