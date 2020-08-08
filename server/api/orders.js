@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-const orderRouter = require("express").Router();
-const { Order } = require("../db/model/order")
-=======
 const orderRouter = require('express').Router();
 const { Order } = require('../db/models');
->>>>>>> 9d9193f2497f7c10eebb5708befdac9c0617a7a9
 
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
 orderRouter.post('/', async (req, res, next) => {

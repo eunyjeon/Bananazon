@@ -25,3 +25,7 @@ form div {
   padding: 10px;
   margin: 10px;
 }
+
+nav {
+  background-image: linear-gradient(#f6dc8e, #f6ef8e);
+}
