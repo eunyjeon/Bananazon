@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   getSingleProductThunk,
   increaseQuantity,
   decreaseQuantity,
-} from '../store/singleProduct';
+} from "../store/singleProduct";
 
 export class SingleProduct extends Component {
   constructor() {
@@ -41,7 +41,9 @@ export class SingleProduct extends Component {
     }
   }
 
-  addToCart() {}
+  addToCart() {
+    console.log("add to cart clicked in single products");
+  }
 
   render() {
     const {
@@ -71,14 +73,10 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-<<<<<<< HEAD
 
-          <button type="submit" onSubmit={this.addToCart}>
+          <button type="button" onClick={this.addToCart}>
             Add to Cart
           </button>
-=======
-          <button type="submit">Add to Cart</button>
->>>>>>> ad523d2eca16fef07b2a52c0b4a6cb4dcc6bd531
         </div>
       </div>
     );
