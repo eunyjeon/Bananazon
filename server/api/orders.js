@@ -1,11 +1,7 @@
-const orderRouter = require("express").Router();
-const { Order, OrderItem } = require("../db/models");
+const orderRouter = require('express').Router();
+const { Order, OrderItem } = require('../db/models');
 
-<<<<<<< HEAD
 orderRouter.get('/:orderId', async (req, res, next) => {
-=======
-orderRouter.get("/:orderId", async (req, res, next) => {
->>>>>>> 0c4528be5ba595f87318d459fe1410530f06c92c
   try {
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
@@ -18,7 +14,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 });
 
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
-orderRouter.post("/", async (req, res, next) => {
+orderRouter.post('/', async (req, res, next) => {
   try {
     const newOrder = await Order.create();
     res.json(newOrder);
@@ -28,7 +24,7 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => {
+orderRouter.put('/:orderId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const updatingThisOrder = await Order.findByPk(orderId, {
