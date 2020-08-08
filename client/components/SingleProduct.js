@@ -25,7 +25,6 @@ export class SingleProduct extends Component {
   }
   addToCartHandler(event) {
     console.log('Add To Cart Clicked!');
-    window.location.href = '/cart';
   }
   async increase() {
     await this.props.increaseQuantity(this.props.match.params.id);
