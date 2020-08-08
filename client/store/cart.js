@@ -37,11 +37,11 @@ export const createCartThunk = () => async (dispatch) => {
 };
 
 //addToCart Thunk
-export const addToCartThunk = (orderId, productId, quantity) => async (
-  dispatch
-) => {
+export const addToCartThunk = (orderId, product) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`);
+    const res = await axios.put(`/api/orders/${orderId}`, product);
+  } catch (err) {
+    console.error(err);
   }
 };
 

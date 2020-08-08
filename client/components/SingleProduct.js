@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   getSingleProductThunk,
   increaseQuantity,
@@ -24,8 +25,11 @@ export class SingleProduct extends Component {
     // we call this.getSubtotal when we refresh but
     // this.getSubtotal();
   }
-  increase() {
-    this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
+  addToCartHandler(event) {
+    console.log("Add To Cart Clicked!");
+  }
+  async increase() {
+    await this.props.increaseQuantity(this.props.match.params.id);
     this.getSubtotal();
   }
   decrease() {
@@ -74,10 +78,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-
-          <button type="button" onClick={this.addToCart}>
-            Add to Cart
-          </button>
+          <NavLink to="/cart">
+            <button type="submit" onClick={this.addToCartHandler}>
+              Add To Cart
+            </button>
+          </NavLink>
         </div>
       </div>
     );
