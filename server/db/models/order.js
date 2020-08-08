@@ -10,10 +10,10 @@ const Order = db.define('order', {
     validate: {
       inEmpty: false,
     },
-    totalPrice: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
+  },
+  totalPrice: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
 });
 
