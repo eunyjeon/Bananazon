@@ -28,8 +28,8 @@ export class SingleProduct extends Component {
   addToCartHandler(event) {
     console.log("Add To Cart Clicked!");
   }
-  async increase() {
-    await this.props.increaseQuantity(this.props.match.params.id);
+  increase() {
+    this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
   }
   decrease() {
