@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   getSingleProductThunk,
   increaseQuantity,
@@ -76,9 +76,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <button type="submit" onClick={this.addToCartHandler}>
-            Add To Cart
-          </button>
+          <NavLink to="/cart">
+            <button type="submit" onClick={this.addToCartHandler}>
+              Add To Cart
+            </button>
+          </NavLink>
         </div>
       </div>
     );
