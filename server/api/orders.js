@@ -1,5 +1,17 @@
 const orderRouter = require("express").Router();
-const { Order } = require("../db/models");
+const { Order, OrderItem } = require("../db/models");
+
+orderRouter.get("/:orderId", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const order = await Order.findByPk(orderId, {
+      include: [{ model: OrderItem }],
+    });
+    res.json(order); // should send back order instance with orderItem information
+  } catch (error) {
+    next(error);
+  }
+});
 
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
 orderRouter.post("/", async (req, res, next) => {
@@ -11,10 +23,14 @@ orderRouter.post("/", async (req, res, next) => {
   }
 });
 
+// updating products in OrderItems in specific order
 orderRouter.put("/:orderId", async (req, res, next) => {
   try {
-    const updatingThisOrder = await Order.findByPk(req.params.orderId);
-    const newInfo = req.body;
+    const orderId = req.params.orderId;
+    const updatingThisOrder = await Order.findByPk(orderId, {
+      include: [{ model: OrderItem }],
+    });
+    const newInfo = req.body; // get back productId, and quantity
     const updatedOrder = await updatingThisOrder.update(newInfo);
     updatedOrder.save();
     req.json(updatedOrder);
