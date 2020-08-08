@@ -10,8 +10,10 @@ export class SingleProduct extends Component {
   constructor() {
     super();
     this.state = {
+      quantity: 0,
       subtotal: 0,
     };
+
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
@@ -20,41 +22,40 @@ export class SingleProduct extends Component {
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
     // we call this.getSubtotal when we refresh but
+    // this.getSubtotal();
+  }
+  increase() {
+    this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
   }
-  async increase() {
-    await this.props.increaseQuantity(this.props.match.params.id);
-    this.getSubtotal();
-  }
-  async decrease() {
-    await this.props.decreaseQuantity(this.props.match.params.id);
-    this.getSubtotal();
+  decrease() {
+    if (this.state.quantity === 0) {
+      this.getSubtotal();
+    } else {
+      this.setState({ ...this.state, quantity: (this.state.quantity -= 1) });
+      this.getSubtotal();
+    }
   }
   getSubtotal() {
-    if (!this.props.product.quantities || this.props.quantities === 0) {
-      return 0;
-    } else if (this.props.product.quantities) {
-      this.setState({
-        ...this.state,
-        subtotal: this.props.product.price * this.props.product.quantities,
-      });
-    }
+    this.setState({
+      ...this.state,
+      subtotal: this.state.quantity * this.props.product.price,
+    });
   }
 
   addToCart() {
-    console.log("add to cart clicked in single products");
+    //productId would be this.props.match.params.id
+    let productId = this.props.match.params.id;
+    let quantity = console.log("add to cart clicked in single products");
+    // call thunk to put item in cart in backend
+    //
+    // create cart or add to current cart
   }
 
   render() {
-    const {
-      name,
-      imageUrl,
-      description,
-      category,
-      price,
-      quantities,
-    } = this.props.product;
-    const subtotal = 0;
+    const { name, imageUrl, description, category, price } = this.props.product;
+    const quantity = this.state.quantity;
+    const subtotal = this.state.subtotal;
     return (
       <div>
         <div>
@@ -65,8 +66,8 @@ export class SingleProduct extends Component {
           <p>Product Info: {description}</p>
         </div>
         <div>
-          <p>Quantity: {quantities}</p>
-          <p>Subtotal: {this.state.subtotal} </p>
+          <p>Quantity: {quantity}</p>
+          <p>Subtotal: {subtotal} </p>
           <button type="button" size="small" onClick={this.increase}>
             +
           </button>
