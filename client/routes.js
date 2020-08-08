@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Login, Signup, UserHome } from "./components";
-import { me } from "./store";
-import SingleProduct from "./components/SingleProduct";
-import AllProduct from "./components/AllProduct";
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Login, Signup, UserHome } from './components';
+import { me } from './store';
+import SingleProduct from './components/SingleProduct';
+import AllProduct from './components/AllProduct';
+import Cart from './components/Cart';
+import ConfirmationPage from './components/ConfirmationPage';
 /**
  * COMPONENT
  */
@@ -29,6 +30,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} /> */}
         <Route exact path="/products" component={AllProduct} />
         <Route path="/products/:id" component={SingleProduct} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/confirmationPage" component={ConfirmationPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
