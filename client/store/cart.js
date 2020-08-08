@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 //action type
-const CREATE_CART = "CREATE_CART";
-const ADD_TO_CART = "ADD_TO_CART";
+const CREATE_CART = 'CREATE_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
 
 // initial state
 const defaultProducts = [];
