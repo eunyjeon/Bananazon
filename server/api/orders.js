@@ -1,11 +1,11 @@
 const orderRouter = require('express').Router();
-const { Order, OrderItem } = require('../db/models');
+const { Order, OrderItem, Product } = require('../db/models');
 
 orderRouter.get("/:orderId", async (req,res,next) => {
     try {
         const orderId = req.params.orderId;
         const order = await Order.findByPk(orderId, {
-            include: [{model: OrderItem}]
+            include: [{model: Product}]
         })
         res.json(order); // should send back order instance with orderItem information 
     } catch (error) {
@@ -28,7 +28,7 @@ orderRouter.put('/:orderId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const updatingThisOrder = await Order.findByPk(orderId, {
-        include: [{model: OrderItem}]
+        include: [{model: Product}]
     });
     const newInfo = req.body; // get back productId, and quantity
     const updatedOrder = await updatingThisOrder.update(newInfo);

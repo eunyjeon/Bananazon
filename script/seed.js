@@ -13,6 +13,8 @@ async function seed() {
 
   console.log(`seeded users`);
   console.log(`seeded products`);
+  console.log(`seeded orders`)
+  console.log(`seeded orderItems`)
   console.log(`seeded successfully`);
 }
 
