@@ -14,6 +14,10 @@ const OrderItem = db.define('orderItem', {
   subtotal: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    get() {
+      const rawValue = this.getDataValue('subtotal');
+      return rawValue ? rawValue / 100 : null;
+    },
   },
 });
 
