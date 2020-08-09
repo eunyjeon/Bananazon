@@ -14,12 +14,10 @@ orderRouter.get("/", async (req, res, next) => {
       include: [{ model: Product }],
     });
 
-    console.log(notPaidOrders);
     if (notPaidOrders.length < 1) {
       res.json(false);
     } else {
-      const notPaidOrderId = notPaidOrders[0].id;
-      res.json(notPaidOrderId);
+      res.json(notPaidOrders);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
