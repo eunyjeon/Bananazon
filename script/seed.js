@@ -1,6 +1,6 @@
 "use strict";
 
-const { User, Product, db } = require("../server/db/models/index");
+const { User, Product, Order, db } = require("../server/db/models/index");
 const { userSeed, productSeed, orderSeed } = require("../seedFiles"); // goes to seedFiles/index.js
 async function seed() {
   await db.sync({ force: true });
