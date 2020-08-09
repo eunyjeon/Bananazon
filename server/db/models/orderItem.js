@@ -1,5 +1,5 @@
 const db = require('../db');
-const { Product } = require('./product');
+const Product = require('./product');
 const Sequelize = require('sequelize');
 
 const OrderItem = db.define('orderItem', {
@@ -28,5 +28,11 @@ const OrderItem = db.define('orderItem', {
 //   const itemPrice = Product.findById(this.productId).price
 //   this.subtotal = itemPrice * this.quantity
 // }
+
+OrderItem.beforeSave((orderItemInstance) => {
+  const quantity = orderItemInstance.quantity;
+  const productPrice = Product.findByPk(this.productId).price;
+  orderItemInstance.subtotal = quantity * productPrice;
+})
 
 module.exports = OrderItem;

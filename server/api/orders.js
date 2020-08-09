@@ -1,6 +1,35 @@
 const orderRouter = require('express').Router();
 const { Order, OrderItem, Product } = require('../db/models');
 
+// this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
+orderRouter.get('/', async (req, res, next) => {
+  try {
+    let userId = req.body;
+    userId = 30;
+    console.log(userId)
+    const notPaidOrders = await Order.findAll({ 
+      where: {
+        isPaid: false,
+        userId: userId
+      },
+      include: [{model: Product}]
+    })
+
+    console.log(notPaidOrders)
+    if (notPaidOrders.length < 1){
+      res.json(false)
+    } else {
+      const notPaidOrderId = notPaidOrders[0].id
+      res.json(notPaidOrderId);
+    }
+
+    // change to send orderId if there is one, else tell it send back undefined?
+  } catch (error) {
+    next(error);
+  }
+});
+
+// To get the specific order instance/cart info
 orderRouter.get("/:orderId", async (req,res,next) => {
     try {
         const orderId = req.params.orderId;
