@@ -6,6 +6,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
 } from "../store/singleProduct";
+import { getCartThunk, createCartThunk, addToCartThunk } from "../store/cart";
 
 export class SingleProduct extends Component {
   constructor() {
@@ -27,6 +28,17 @@ export class SingleProduct extends Component {
   }
   addToCartHandler(event) {
     console.log("Add To Cart Clicked!");
+    // assuming that we're saving user login info in the localStorage
+    const userId = Window.localStorage.userId;
+    const productId = this.props.match.params.id;
+    const quantity = this.state.quantity;
+
+    const order = this.props.getCart(userId);
+    if (order === {}) {
+      order = this.props.createCart(userId);
+    }
+
+    //this.props.addToCartThunk({userId, productId, quantity})
   }
   increase() {
     this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
@@ -45,15 +57,6 @@ export class SingleProduct extends Component {
       ...this.state,
       subtotal: this.state.quantity * this.props.product.price,
     });
-  }
-
-  addToCart() {
-    //productId would be this.props.match.params.id
-    let productId = this.props.match.params.id;
-    let quantity = console.log("add to cart clicked in single products");
-    // call thunk to put item in cart in backend
-    //
-    // create cart or add to current cart
   }
 
   render() {
@@ -102,5 +105,9 @@ const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
   increaseQuantity: (id) => dispatch(increaseQuantity(id)),
   decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
+  getCart: (userId) => dispatch(getCartThunk(userId)),
+  createCart: (userId) => dispatch(createCartThunk(userId)),
+  addToCart: (orderId, productId) =>
+    dispatch(addToCartThunk(orderId, productId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

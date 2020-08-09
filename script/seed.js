@@ -1,17 +1,20 @@
 "use strict";
 
-const { User, Product, db } = require("../server/db/models/index");
-const userSeed = require("../seedFiles/userSeed");
-const productSeed = require("../seedFiles/productSeed");
+const { User, Product, Order, OrderItem, db } = require("../server/db/models/index");
+const { userSeed, productSeed, orderSeed, orderItemSeed } = require("../seedFiles"); // goes to seedFiles/index.js
 async function seed() {
   await db.sync({ force: true });
   console.log("db synced!");
 
   const users = await Promise.all([User.bulkCreate(userSeed)]);
   const products = await Promise.all([Product.bulkCreate(productSeed)]);
+  const orders = await Promise.all([Order.bulkCreate(orderSeed)]);
+  const orderItems = await Promise.all([OrderItem.bulkCreate(orderItemSeed)]);
 
   console.log(`seeded users`);
   console.log(`seeded products`);
+  console.log(`seeded orders`)
+  console.log(`seeded orderItems`)
   console.log(`seeded successfully`);
 }
 
