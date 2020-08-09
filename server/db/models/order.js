@@ -14,9 +14,12 @@ const Order = db.define('order', {
   totalPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    validate: {
+      min: 0,
+    },
     get() {
       const rawValue = this.getDataValue('totalPrice');
-      return rawValue ? rawValue / 100 : null;
+      return rawValue && rawValue / 100;
     },
   },
 });
