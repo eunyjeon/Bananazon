@@ -20,16 +20,18 @@ const addToCart = (product) => ({ type: ADD_TO_CART, product });
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
     const res = await axios.get("/api/orders", userId);
-    dispatch(getCart(res.data));
+    dispatch(getCart(res.data)); //either a orderId or false if not exists
   } catch (err) {
     console.error(err);
   }
 };
 
 //createCart Thunk
-export const createCartThunk = (userId) => async (dispatch) => {
+export const createCartThunk = (userId, productId, quantity) => async (
+  dispatch
+) => {
   try {
-    const res = await axios.post("/api/orders", userId);
+    const res = await axios.post("/api/orders", userId, productId, quantity);
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -37,9 +39,11 @@ export const createCartThunk = (userId) => async (dispatch) => {
 };
 
 //addToCart Thunk
-export const addToCartThunk = (orderId, productId) => async (dispatch) => {
+export const addToCartThunk = (orderId, productId, quantity) => async (
+  dispatch
+) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`, productId);
+    const res = await axios.put(`/api/orders/${orderId}`, productId, quantity);
   } catch (err) {
     console.error(err);
   }

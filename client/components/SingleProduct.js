@@ -32,11 +32,11 @@ export class SingleProduct extends Component {
     const userId = Window.localStorage.userId;
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
-
-    const order = this.props.getCart(userId);
-    if (order === {}) {
-      order = this.props.createCart(userId);
+    let orderId = this.props.getCart(userId);
+    if (orderId === false) {
+      orderId = this.props.createCart(userId).orderId;
     }
+    this.props.addToCart(orderId, productId, quantity);
 
     //this.props.addToCartThunk({userId, productId, quantity})
   }
@@ -107,7 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
   decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
   getCart: (userId) => dispatch(getCartThunk(userId)),
   createCart: (userId) => dispatch(createCartThunk(userId)),
-  addToCart: (orderId, productId) =>
-    dispatch(addToCartThunk(orderId, productId)),
+  addToCart: (orderId, productId, quantity) =>
+    dispatch(addToCartThunk(orderId, productId, quantity)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

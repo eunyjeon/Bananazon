@@ -5,8 +5,7 @@ const { Order, OrderItem, Product } = require("../db/models");
 orderRouter.get("/", async (req, res, next) => {
   try {
     let userId = req.body;
-    userId = 30;
-    console.log(userId);
+
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
