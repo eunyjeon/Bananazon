@@ -10,9 +10,16 @@ const Order = db.define('order', {
     validate: {
       inEmpty: false,
     },
-    totalPrice: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
+  },
+  totalPrice: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
+    },
+    get() {
+      const rawValue = this.getDataValue('totalPrice');
+      return rawValue && rawValue / 100;
     },
   },
 });
