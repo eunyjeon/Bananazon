@@ -17,19 +17,21 @@ const createCart = (cart) => ({ type: CREATE_CART }, cart);
 const addToCart = (product) => ({ type: ADD_TO_CART, product });
 
 // getCart thunk
-export const getCartThunk = () => async (dispatch) => {
+export const getCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/orders");
-    dispatch(getCart(res.data || defaultCart));
+    const res = await axios.get("/api/orders", userId);
+    dispatch(getCart(res.data)); //either a orderId or false if not exists
   } catch (err) {
     console.error(err);
   }
 };
 
 //createCart Thunk
-export const createCartThunk = () => async (dispatch) => {
+export const createCartThunk = (userId, productId, quantity) => async (
+  dispatch
+) => {
   try {
-    const res = await axios.post("/api/orders");
+    const res = await axios.post("/api/orders", userId, productId, quantity);
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -37,16 +39,18 @@ export const createCartThunk = () => async (dispatch) => {
 };
 
 //addToCart Thunk
-export const addToCartThunk = (orderId, product) => async (dispatch) => {
+export const addToCartThunk = (orderId, productId, quantity) => async (
+  dispatch
+) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`, product);
+    const res = await axios.put(`/api/orders/${orderId}`, productId, quantity);
   } catch (err) {
     console.error(err);
   }
 };
 
 // reducer
-export default function addToCartReducer(state = defaultCart, action) {
+export default function cartReducer(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
