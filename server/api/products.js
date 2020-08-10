@@ -10,6 +10,28 @@ productRouter.get('/', async (req, res, next) => {
   }
 });
 
+const { Op } = require("sequelize");
+// sending back the products information requested for the cart compoenent - visitor - local storage
+// maybe move to differnet file
+productRouter.get('/cart', async (req, res, next) => {
+  try {
+    const arrOfProductIds = req.body;
+    const products = await Product.findAll({
+      where: {
+        id: {
+          [Op.or]: arrOfProductIds
+        }
+      }
+    });
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
+
 productRouter.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
