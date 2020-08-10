@@ -36,6 +36,17 @@ export class SingleProduct extends Component {
     console.log("Add To Cart Clicked!");
     this.props.getCart(2);
     // assuming that we're saving user login info in the localStorage
+
+    const userId = window.localStorage.getItem("userId");
+    const productId = this.props.match.params.id;
+    const quantity = this.state.quantity;
+    let cart = this.props.getCart(userId);
+    if (cart === false) {
+      cart = this.props.createCart(userId);
+    }
+    const orderId = cart.orderId;
+    this.props.addToCart(orderId, productId, quantity);
+
     // const userId = 2;
     // const productId = this.props.match.params.id;
     // const quantity = this.state.quantity;
@@ -46,8 +57,10 @@ export class SingleProduct extends Component {
     // const orderId = cart.orderId;
     // this.props.addToCart(orderId, productId, quantity);
 
+
     // //this.props.addToCartThunk({userId, productId, quantity})
   }
+
   increase() {
     this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
