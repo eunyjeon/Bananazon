@@ -27,27 +27,27 @@ export class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
-
-    // this.props.getCart([2]);
-    // we call this.getSubtotal when we refresh but
-    // this.getSubtotal();
   }
-  addToCartHandler() {
+  async addToCartHandler() {
     console.log("Add To Cart Clicked!");
-    this.props.getCart(2);
-    // assuming that we're saving user login info in the localStorage
-    // const userId = 2;
-    // const productId = this.props.match.params.id;
-    // const quantity = this.state.quantity;
-    // let cart = this.props.getCart(userId);
-    // if (cart === false) {
-    //   cart = this.props.createCart(userId);
-    // }
-    // const orderId = cart.orderId;
-    // this.props.addToCart(orderId, productId, quantity);
 
-    // //this.props.addToCartThunk({userId, productId, quantity})
+    const productId = this.props.match.params.id;
+    const quantity = this.state.quantity;
+    const userId = 1;
+    await this.props.getCart(userId);
+    if (this.props.cart == false) {
+      await this.props.createCart(userId);
+      await this.props.getCart(userId);
+      const orderId = this.props.cart[0].id;
+      await this.props.addToCart(orderId, productId, quantity);
+    } else {
+      const orderId = this.props.cart[0].id;
+
+      await this.props.addToCart(orderId, productId, quantity);
+    }
+    console.log("this.props.cart", this.props.cart);
   }
+
   increase() {
     this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
@@ -90,11 +90,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <NavLink to="/cart">
-            <button type="submit" onClick={this.addToCartHandler}>
-              Add To Cart
-            </button>
-          </NavLink>
+          {/* <NavLink to="/cart"> */}
+          <button type="submit" onClick={this.addToCartHandler}>
+            Add To Cart
+          </button>
+          {/* </NavLink> */}
         </div>
       </div>
     );
