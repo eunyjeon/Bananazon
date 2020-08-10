@@ -28,20 +28,17 @@ const addToCart = (product) => ({ type: ADD_TO_CART, product });
 // getCart thunk
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/orders", userId);
-
-    dispatch(getCart(res.data) || defaultCart); //either [obj] or false if not exists
+    const res = await axios.get(`/api/orders/cart/${userId}`);
+    dispatch(getCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
   }
 };
 
 //createCart Thunk
-export const createCartThunk = (userId, productId, quantity) => async (
-  dispatch
-) => {
+export const createCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/orders", userId, productId, quantity);
+    const res = await axios.post("/api/orders", { userId: userId });
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -53,7 +50,10 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`, productId, quantity);
+    const res = await axios.put(`/api/orders/${orderId}`, {
+      productId,
+      quantity,
+    });
     dispatch(addToCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -68,7 +68,10 @@ export default function cartReducer(state = defaultCart, action) {
     case CREATE_CART:
       return action.cart;
     case ADD_TO_CART:
-      return { ...state, products: [...products, action.product] };
+      return {
+        ...state,
+        products: [...products, action.product],
+      };
     default:
       return state;
   }
