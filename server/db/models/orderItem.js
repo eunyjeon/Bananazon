@@ -19,7 +19,7 @@ const OrderItem = db.define('orderItem', {
     },
     get() {
       const rawValue = this.getDataValue('subtotal');
-      return rawValue && rawValue / 100;
+      return rawValue && (rawValue / 100).toFixed(2);
     },
   },
 });
