@@ -7,9 +7,25 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true,
+    }
   },
-  password: {
+  password: { // I'm still working on this ~ Mona 
     type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      isGood(value) {
+        if (this.password.length < 8) {
+          throw new Error('Password must be at least 8 characters')
+          // we also are in the model's context here, so this.otherField
+          // would get the value of otherField if it existed
+        }
+      },
+    },
+    
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -38,8 +54,6 @@ const User = db.define('user', {
     type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
-      max: 11,
-      min: 10,
       isNumeric: true,
     },
   },
