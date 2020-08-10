@@ -56,7 +56,7 @@ export class SingleProduct extends Component {
   getSubtotal() {
     this.setState({
       ...this.state,
-      subtotal: this.state.quantity * this.props.product.price,
+      subtotal: (this.state.quantity * this.props.product.price).toFixed(2),
     });
   }
 
