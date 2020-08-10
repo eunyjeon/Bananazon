@@ -6,6 +6,7 @@ import user from "./user";
 import allProductReducer from "./allProduct";
 import singleProductReducer from "./singleProduct";
 import cartReducer from "./cart";
+
 export const reducer = combineReducers({
   user: user,
   products: allProductReducer,
