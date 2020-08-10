@@ -29,3 +29,13 @@ form div {
 nav {
   background-image: linear-gradient(#f6dc8e, #f6ef8e);
 }
+button {
+  background-color: white;
+  color: black;
+  transition-duration: 0.3s;
+  border-radius: 8px;
+}
+button:hover {
+  background: #555555;
+  color: white;
+}
