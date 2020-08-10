@@ -103,19 +103,24 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => {
+orderRouter.post("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
-    const updatingThisOrder = await Order.findByPk(orderId, {
-      include: [{ model: Product }],
-    });
-    console.log("put route in api, before ", updatingThisOrder);
+    // const updatingThisOrder = await Order.findByPk(orderId, {
+    //   include: [{ model: Product }],
+    // });
+    // console.log("put route in api, before ", updatingThisOrder);
     const newInfo = req.body; // get back productId, and quantity
     console.log("new info", newInfo);
-    const updatedOrder = await updatingThisOrder.update(newInfo);
-    console.log("put route in api, after", updatedOrder);
-    updatedOrder.save();
-    req.json(updatedOrder);
+
+    await OrderItem.create(newInfo);
+    const updatedOrder = await Order.findByPk(orderId);
+    console.log(updatedOrder)
+
+    // const updatedOrder = await updatingThisOrder.update(newInfo);
+    // console.log("put route in api, after", updatedOrder);
+    // updatedOrder.save();
+    res.json(updatedOrder);
   } catch (error) {
     next(error);
   }
