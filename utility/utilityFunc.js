@@ -9,11 +9,3 @@ export const createLocalCart = (orderId) => {
     localStorage.setItem('orderId', orderId);
   }
 };
-//adding a checker to see if a User is admin or not
-export const isAdmin = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
-    const error = new Error(`Nice try, you're not an Admin!`);
-    return next(error);
-  }
-  next();
-};
