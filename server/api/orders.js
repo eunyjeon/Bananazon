@@ -1,7 +1,7 @@
 const orderRouter = require("express").Router();
 const { Order, OrderItem, Product } = require("../db/models");
 
-// this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
+// this is to get the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => {
   try {
     let userId = req.body;
@@ -13,7 +13,6 @@ orderRouter.get("/", async (req, res, next) => {
       },
       include: [{ model: Product }],
     });
-
     if (notPaidOrders.length < 1) {
       res.json(false);
     } else {
