@@ -19,23 +19,24 @@ export class SingleProduct extends Component {
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
-    this.addToCart = this.addToCart.bind(this);
+    this.addToCartHandler = this.addToCartHandler.bind(this);
   }
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
     // we call this.getSubtotal when we refresh but
     // this.getSubtotal();
   }
-  addToCartHandler(event) {
+  addToCartHandler() {
     console.log("Add To Cart Clicked!");
     // assuming that we're saving user login info in the localStorage
     const userId = Window.localStorage.userId;
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
-    let orderId = this.props.getCart(userId);
-    if (orderId === false) {
-      orderId = this.props.createCart(userId).orderId;
+    let cart = this.props.getCart(userId);
+    if (cart === false) {
+      cart = this.props.createCart(userId);
     }
+    const orderId = cart.orderId;
     this.props.addToCart(orderId, productId, quantity);
 
     //this.props.addToCartThunk({userId, productId, quantity})
@@ -55,7 +56,7 @@ export class SingleProduct extends Component {
   getSubtotal() {
     this.setState({
       ...this.state,
-      subtotal: this.state.quantity * this.props.product.price,
+      subtotal: (this.state.quantity * this.props.product.price).toFixed(2),
     });
   }
 
