@@ -6,7 +6,7 @@ const CREATE_CART = "CREATE_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 
 // initial state
-const defaultCart = {};
+const defaultCart = { default: "nothinghere" };
 
 /* res.data[0] from the getCart route
 {
@@ -28,9 +28,9 @@ const addToCart = (product) => ({ type: ADD_TO_CART, product });
 // getCart thunk
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/orders", userId);
+    const res = await axios.get(`/api/orders/cart/${userId}`);
 
-    dispatch(getCart(res.data) || defaultCart); //either [obj] or false if not exists
+    dispatch(getCart(res.data[0]) || defaultCart);
   } catch (err) {
     console.error(err);
   }
@@ -68,7 +68,10 @@ export default function cartReducer(state = defaultCart, action) {
     case CREATE_CART:
       return action.cart;
     case ADD_TO_CART:
-      return { ...state, products: [...products, action.product] };
+      return {
+        ...state,
+        products: [...products, action.product],
+      };
     default:
       return state;
   }

@@ -1,24 +1,20 @@
-const db = require('../db');
-const Sequelize = require('sequelize');
-const OrderItem = require('./orderItem');
+const db = require("../db");
+const Sequelize = require("sequelize");
+const OrderItem = require("./orderItem");
 
-const Order = db.define('order', {
+const Order = db.define("order", {
   isPaid: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
     defaultValue: false,
-    validate: {
-      inEmpty: false,
-    },
   },
   totalPrice: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    defaultValue: 0,
     validate: {
       min: 0,
     },
     get() {
-      const rawValue = this.getDataValue('totalPrice');
+      const rawValue = this.getDataValue("totalPrice");
       return rawValue && rawValue / 100;
     },
   },
