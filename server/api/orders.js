@@ -1,7 +1,32 @@
 const orderRouter = require("express").Router();
 const { Order, OrderItem, Product } = require("../db/models");
 
-// this is to get the cart!!!!!!!!!!!!!!!!!!
+// // after clicking on addToCart btn or loggin in, look to see if user has a order that is not paid yet
+// // if yes, return the order information
+// // if no, return a new order instance
+// orderRouter.put("/", async (req, res, next) => {
+//   try {
+//     // should send userId in some form from axios request
+//     const userId = req.body;
+//     const orderInfo = await Order.findOrCreate({
+//       where: {
+//         userId,
+//         isPaid: false
+//       },
+//       include: [{ model: Product }],
+//       defaults: {
+//         userId,
+//         isPaid: false,
+//         totalPrice : 0
+//       }
+//     })
+//     res.json(orderInfo); // should send back order instance with orderItem information
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => {
   try {
     let userId = req.body;
@@ -13,6 +38,8 @@ orderRouter.get("/", async (req, res, next) => {
       },
       include: [{ model: Product }],
     });
+
+    console.log(notPaidOrders);
     if (notPaidOrders.length < 1) {
       res.json(false);
     } else {
@@ -41,7 +68,8 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
 orderRouter.post("/", async (req, res, next) => {
   try {
-    const newOrder = await Order.create();
+    const userId = req.body;
+    const newOrder = await Order.create({userId: userId[0]});
     res.json(newOrder);
   } catch (error) {
     next(error);
@@ -65,3 +93,4 @@ orderRouter.put("/:orderId", async (req, res, next) => {
 });
 
 module.exports = orderRouter;
+
