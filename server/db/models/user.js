@@ -12,7 +12,7 @@ const User = db.define('user', {
       notEmpty: true,
     }
   },
-  password: {
+  password: { // I'm still working on this ~ Mona 
     type: Sequelize.STRING,
     allowNull: false,
     validate: {

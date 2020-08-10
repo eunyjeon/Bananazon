@@ -103,7 +103,7 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.post("/:orderId", async (req, res, next) => {
+orderRouter.post("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
   try {
     const orderId = req.params.orderId;
     // const updatingThisOrder = await Order.findByPk(orderId, {
