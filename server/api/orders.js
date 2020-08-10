@@ -27,7 +27,7 @@ const { Order, OrderItem, Product } = require("../db/models");
 // });
 
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
-orderRouter.get("/", async (req, res, next) => {
+orderRouter.get("/", async (req, res, next) => { // LET TAIHUA KNOW I CHANGED EAGERLY LOADING TO ORDERITEM
   try {
     let userId = req.body;
 
@@ -36,7 +36,7 @@ orderRouter.get("/", async (req, res, next) => {
         isPaid: false,
         userId: userId[0],
       },
-      include: [{ model: Product }],
+      include: [{ model: OrderItem }],
     });
 
     if (notPaidOrders.length < 1) {
@@ -81,7 +81,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
-      include: [{ model: Product }],
+      include: [{ model: OrderItem }],
     });
     res.json(order); // should send back order instance with orderItem information
   } catch (error) {
@@ -103,18 +103,22 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.post("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
+orderRouter.put("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
   try {
     const orderId = req.params.orderId;
     // const updatingThisOrder = await Order.findByPk(orderId, {
     //   include: [{ model: Product }],
     // });
     // console.log("put route in api, before ", updatingThisOrder);
-    const newInfo = req.body; // get back productId, and quantity
-    console.log("new info", newInfo);
+    const { productId, quantity } = req.body; // get back productId, and quantity 
+    // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
+    // YES, UPDATE, NO CREATE
 
-    await OrderItem.create(newInfo);
-    const updatedOrder = await Order.findByPk(orderId);
+    const newOrderItem = await OrderItem.create({ productId, quantity, orderId }); // SHOULD ALSO INCLUDE ORDERID
+    console.log(newOrderItem)
+    const updatedOrder = await Order.findByPk(orderId, {
+      include: [{ model: OrderItem }]
+    });
     console.log(updatedOrder)
 
     // const updatedOrder = await updatingThisOrder.update(newInfo);
