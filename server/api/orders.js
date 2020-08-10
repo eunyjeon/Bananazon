@@ -39,11 +39,10 @@ orderRouter.get("/", async (req, res, next) => {
       include: [{ model: Product }],
     });
 
-    console.log(notPaidOrders);
     if (notPaidOrders.length < 1) {
-      res.json(false);
+      res.json({});
     } else {
-      res.json(notPaidOrders);
+      res.json(notPaidOrders[0]);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -94,7 +93,9 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 orderRouter.post("/", async (req, res, next) => {
   try {
     const userId = req.body;
-    const newOrder = await Order.create({ userId: userId[0] });
+    console.log("body!!!!!!!!!!!!!!", req.body);
+    const newOrder = await Order.create(userId);
+    console.log(newOrder, "newOrder from api post route");
     res.json(newOrder);
   } catch (error) {
     next(error);
@@ -108,8 +109,11 @@ orderRouter.put("/:orderId", async (req, res, next) => {
     const updatingThisOrder = await Order.findByPk(orderId, {
       include: [{ model: Product }],
     });
+    console.log("put route in api, before ", updatingThisOrder);
     const newInfo = req.body; // get back productId, and quantity
+    console.log("new info", newInfo);
     const updatedOrder = await updatingThisOrder.update(newInfo);
+    console.log("put route in api, after", updatedOrder);
     updatedOrder.save();
     req.json(updatedOrder);
   } catch (error) {

@@ -6,7 +6,7 @@ const CREATE_CART = "CREATE_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 
 // initial state
-const defaultCart = { default: "nothinghere" };
+const defaultCart = {};
 
 /* res.data[0] from the getCart route
 {
@@ -29,19 +29,16 @@ const addToCart = (product) => ({ type: ADD_TO_CART, product });
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/orders/cart/${userId}`);
-
-    dispatch(getCart(res.data[0]) || defaultCart);
+    dispatch(getCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
   }
 };
 
 //createCart Thunk
-export const createCartThunk = (userId, productId, quantity) => async (
-  dispatch
-) => {
+export const createCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/orders", userId, productId, quantity);
+    const res = await axios.post("/api/orders", { userId: userId });
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -53,7 +50,10 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`, productId, quantity);
+    const res = await axios.put(`/api/orders/${orderId}`, {
+      productId,
+      quantity,
+    });
     dispatch(addToCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
