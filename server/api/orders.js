@@ -69,7 +69,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 orderRouter.post("/", async (req, res, next) => {
   try {
     const userId = req.body;
-    const newOrder = await Order.create({userId: userId[0]});
+    const newOrder = await Order.create({ userId: userId[0] });
     res.json(newOrder);
   } catch (error) {
     next(error);
@@ -93,4 +93,3 @@ orderRouter.put("/:orderId", async (req, res, next) => {
 });
 
 module.exports = orderRouter;
-
