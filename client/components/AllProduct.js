@@ -2,21 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { allProductThunk } from '../store/allProduct';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-toast.configure();
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
 export class AllProduct extends React.Component {
   constructor() {
     super();
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
-
+  gi;
   componentDidMount() {
     this.props.getAllProducts();
   }
 
   addToCartHandler(event) {
     console.log('Add To Cart Clicked!');
+    // const notify = toast('Wow! You added a thing to a cart');
+    // return notify;
   }
 
   render() {
