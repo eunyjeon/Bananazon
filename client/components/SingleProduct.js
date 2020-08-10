@@ -29,7 +29,7 @@ export class SingleProduct extends Component {
   addToCartHandler() {
     console.log("Add To Cart Clicked!");
     // assuming that we're saving user login info in the localStorage
-    const userId = Window.localStorage.userId;
+    const userId = window.localStorage.getItem("userId");
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
     let cart = this.props.getCart(userId);
@@ -41,6 +41,7 @@ export class SingleProduct extends Component {
 
     //this.props.addToCartThunk({userId, productId, quantity})
   }
+
   increase() {
     this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
