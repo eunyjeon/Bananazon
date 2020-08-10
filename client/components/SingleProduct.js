@@ -20,15 +20,23 @@ export class SingleProduct extends Component {
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
     this.addToCartHandler = this.addToCartHandler.bind(this);
+    this.cartChecker = this.cartChecker.bind(this);
   }
+
+  cartChecker() {}
+
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
+
+    // this.props.getCart([2]);
     // we call this.getSubtotal when we refresh but
     // this.getSubtotal();
   }
   addToCartHandler() {
     console.log("Add To Cart Clicked!");
+    this.props.getCart(2);
     // assuming that we're saving user login info in the localStorage
+
     const userId = window.localStorage.getItem("userId");
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
@@ -39,7 +47,18 @@ export class SingleProduct extends Component {
     const orderId = cart.orderId;
     this.props.addToCart(orderId, productId, quantity);
 
-    //this.props.addToCartThunk({userId, productId, quantity})
+    // const userId = 2;
+    // const productId = this.props.match.params.id;
+    // const quantity = this.state.quantity;
+    // let cart = this.props.getCart(userId);
+    // if (cart === false) {
+    //   cart = this.props.createCart(userId);
+    // }
+    // const orderId = cart.orderId;
+    // this.props.addToCart(orderId, productId, quantity);
+
+
+    // //this.props.addToCartThunk({userId, productId, quantity})
   }
 
   increase() {
@@ -62,6 +81,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
+    console.log("props in singleproduct", this.props);
     const { name, imageUrl, description, category, price } = this.props.product;
     const quantity = this.state.quantity;
     const subtotal = this.state.subtotal;
@@ -102,6 +122,7 @@ export class SingleProduct extends Component {
 //
 const mapStateToProps = (state) => ({
   product: state.product,
+  cart: state.cart,
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
