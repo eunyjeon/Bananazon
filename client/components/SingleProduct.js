@@ -20,27 +20,34 @@ export class SingleProduct extends Component {
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
     this.addToCartHandler = this.addToCartHandler.bind(this);
+    this.cartChecker = this.cartChecker.bind(this);
   }
+
+  cartChecker() {}
+
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
-    // we call this.getSubtotal when we refresh but
-    // this.getSubtotal();
   }
-  addToCartHandler() {
+  async addToCartHandler() {
     console.log("Add To Cart Clicked!");
-    // assuming that we're saving user login info in the localStorage
-    const userId = Window.localStorage.userId;
+
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
-    let cart = this.props.getCart(userId);
-    if (cart === false) {
-      cart = this.props.createCart(userId);
-    }
-    const orderId = cart.orderId;
-    this.props.addToCart(orderId, productId, quantity);
+    const userId = 1;
+    await this.props.getCart(userId);
+    if (this.props.cart == false) {
+      await this.props.createCart(userId);
+      await this.props.getCart(userId);
+      const orderId = this.props.cart[0].id;
+      await this.props.addToCart(orderId, productId, quantity);
+    } else {
+      const orderId = this.props.cart[0].id;
 
-    //this.props.addToCartThunk({userId, productId, quantity})
+      await this.props.addToCart(orderId, productId, quantity);
+    }
+    console.log("this.props.cart", this.props.cart);
   }
+
   increase() {
     this.setState({ ...this.state, quantity: (this.state.quantity += 1) });
     this.getSubtotal();
@@ -61,6 +68,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
+    console.log("props in singleproduct", this.props);
     const { name, imageUrl, description, category, price } = this.props.product;
     const quantity = this.state.quantity;
     const subtotal = this.state.subtotal;
@@ -82,11 +90,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <NavLink to="/cart">
-            <button type="submit" onClick={this.addToCartHandler}>
-              Add To Cart
-            </button>
-          </NavLink>
+          {/* <NavLink to="/cart"> */}
+          <button type="submit" onClick={this.addToCartHandler}>
+            Add To Cart
+          </button>
+          {/* </NavLink> */}
         </div>
       </div>
     );
@@ -101,6 +109,7 @@ export class SingleProduct extends Component {
 //
 const mapStateToProps = (state) => ({
   product: state.product,
+  cart: state.cart,
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
