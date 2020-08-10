@@ -18,9 +18,13 @@ export class Cart extends Component {
   submitCartHandler(event) {
     console.log("Submit Cart Clicked!");
   }
+
   render() {
     console.log("cart? props", this.props);
-
+    const cart = this.props.cart[0];
+    if (cart !== undefined) {
+      const products = cart.products;
+    }
     return (
       <div>
         <div>
