@@ -33,7 +33,8 @@ export class SingleProduct extends Component {
 
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
-    const userId = 1;
+    // const userId = window.localStorage.getItem("userId");
+    const userId = 1; // hardcoded for testing
     await this.props.getCart(userId);
     if (this.props.cart == false) {
       await this.props.createCart(userId);

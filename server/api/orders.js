@@ -34,7 +34,7 @@ orderRouter.get("/", async (req, res, next) => {
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId: userId,
+        userId: userId[0],
       },
       include: [{ model: Product }],
     });
