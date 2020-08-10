@@ -1,5 +1,5 @@
-const orderRouter = require("express").Router();
-const { Order, OrderItem, Product } = require("../db/models");
+const orderRouter = require('express').Router();
+const { Order, OrderItem, Product } = require('../db/models');
 
 // // after clicking on addToCart btn or loggin in, look to see if user has a order that is not paid yet
 // // if yes, return the order information
@@ -27,7 +27,7 @@ const { Order, OrderItem, Product } = require("../db/models");
 // });
 
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
-orderRouter.get("/", async (req, res, next) => {
+orderRouter.get('/', async (req, res, next) => {
   try {
     let userId = req.body;
 
@@ -53,7 +53,7 @@ orderRouter.get("/", async (req, res, next) => {
 });
 
 // To get the specific order instance/cart info
-orderRouter.get("/:orderId", async (req, res, next) => {
+orderRouter.get('/:orderId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
@@ -66,7 +66,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 });
 
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
-orderRouter.post("/", async (req, res, next) => {
+orderRouter.post('/', async (req, res, next) => {
   try {
     const userId = req.body;
     const newOrder = await Order.create({ userId: userId[0] });
@@ -77,7 +77,7 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => {
+orderRouter.put('/:orderId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const updatingThisOrder = await Order.findByPk(orderId, {
