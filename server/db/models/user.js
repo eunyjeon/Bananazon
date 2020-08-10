@@ -54,6 +54,10 @@ const User = db.define('user', {
       isCreditCard: true,
     },
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = User;
