@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  background: linear-gradient(#ffefc2, #ffd5c2);
+  text-align: center;
 }
 
 a {
@@ -8,11 +10,13 @@ a {
 
 label {
   display: block;
+  text-align: left;
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
+  color: black;
 }
 
 form div {
@@ -27,7 +31,8 @@ form div {
 }
 
 nav {
-  background-image: linear-gradient(#f6dc8e, #f6ef8e);
+  background-image: linear-gradient(#ffefc2, #ffde85);
+  border-radius: 8px;
 }
 button {
   background-color: white;
