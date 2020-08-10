@@ -1,8 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { allProductThunk } from "../store/allProduct";
-
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { allProductThunk } from '../store/allProduct';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 export class AllProduct extends React.Component {
   constructor() {
     super();
@@ -14,7 +16,7 @@ export class AllProduct extends React.Component {
   }
 
   addToCartHandler(event) {
-    console.log("Add To Cart Clicked!");
+    console.log('Add To Cart Clicked!');
   }
 
   render() {
