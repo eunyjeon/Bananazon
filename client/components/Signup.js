@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import PropTypes from 'prop-types';
 import { createUserThunk } from "../store/newUser";
 
 class SignupForm extends Component {
@@ -19,7 +18,7 @@ class SignupForm extends Component {
     const password = evt.target.password.value
     const firstName = evt.target.firstName.value
     const lastName = evt.target.lastName.value
-    this.props.newUser(email,password, firstName, lastName)
+    this.props.newUser(email, password, firstName, lastName)
   }
 
   render() {

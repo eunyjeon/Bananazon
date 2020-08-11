@@ -25,6 +25,30 @@ router.get('/:userId', isAdmin, async (req, res, next) => {
   }
 });
 
+router.post('/', async (req, res, next) => {
+  try {
+    const [newUser, created] = await User.findOrCreate({
+      where: {
+        email: req.body.email
+      },
+      defaults: {
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+      }
+     })
+
+     if (created) {
+       res.send(newUser)
+     } else {
+       res.send('This email address is already used.')
+     }
+  } catch (err) {
+    console.error(err)
+    next(err)
+  }
+})
+
 router.delete('/:userId', isAdmin, async (req, res, next) => {
   const userId = +req.params.userId;
   try {
