@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { getCartThunk } from "../store/cart";
-import { me } from "../store/user";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { getCartThunk } from '../store/cart';
+import { me } from '../store/user';
 
 export class Cart extends Component {
   constructor() {
@@ -19,11 +19,11 @@ export class Cart extends Component {
   }
 
   submitCartHandler(event) {
-    console.log("Submit Cart Clicked!");
+    console.log('Submit Cart Clicked!');
   }
 
   render() {
-    console.log("cart props", this.props);
+    console.log('cart props', this.props);
     // console.log("cart? props", this.props);
     const cart = this.props.cart; // array like object
     if (cart && cart !== undefined) {
@@ -41,10 +41,10 @@ export class Cart extends Component {
                 ))
               : `Your cart is empty`}
           </div>
-          <NavLink to="/confirmationPage">
+          <NavLink to="/checkout">
             <button type="submit" onClick={this.submitCartHandler}>
-              {" "}
-              Submit You Order!{" "}
+              {' '}
+              Proceed to Checkout!{' '}
             </button>
           </NavLink>
         </div>
@@ -55,7 +55,7 @@ export class Cart extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  cart: state.cart["0"],
+  cart: state.cart['0'],
 });
 
 const mapDispatchToProps = (dispatch) => ({
