@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { createUserThunk } from "../store/newUser";
+import { createUserThunk } from '../store/newUser';
 
 class SignupForm extends Component {
-  constructor () {
-    super()
-    this.submitHandler = this.submitHandler.bind(this)
+  constructor() {
+    super();
+    this.submitHandler = this.submitHandler.bind(this);
   }
 
   componentDidMount() {
-    this.props.newUser()
+    this.props.newUser();
   }
 
   submitHandler(evt) {
-    evt.preventDefault()
-    const email = evt.target.email.value
-    const password = evt.target.password.value
-    const firstName = evt.target.firstName.value
-    const lastName = evt.target.lastName.value
-    this.props.newUser(email,password, firstName, lastName)
+    evt.preventDefault();
+    const email = evt.target.email.value;
+    const password = evt.target.password.value;
+    const firstName = evt.target.firstName.value;
+    const lastName = evt.target.lastName.value;
+    this.props.newUser(email, password, firstName, lastName);
   }
 
   render() {
@@ -28,14 +28,8 @@ class SignupForm extends Component {
         <form onSubmit={this.submitHandler}>
           <label>
             Email
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-            />
+            <input type="email" name="email" placeholder="Email" required />
           </label>
-
 
           <label>
             Password
@@ -65,18 +59,17 @@ class SignupForm extends Component {
               placeholder="Last Name"
               required
             />
-            </label>
+          </label>
           <input type="submit" value="Sign Up" />
         </form>
       </div>
-    )
+    );
   }
 }
 
 const mapDispatch = (dispatch) => ({
-  newUser: (email,password, firstName, lastName) => dispatch(createUserThunk(email,password, firstName, lastName))
-})
+  newUser: (email, password, firstName, lastName) =>
+    dispatch(createUserThunk(email, password, firstName, lastName)),
+});
 
-export default connect (null, mapDispatch) (SignupForm)
-
-
+export default connect(null, mapDispatch)(SignupForm);
