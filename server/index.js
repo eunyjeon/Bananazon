@@ -1,5 +1,4 @@
 const path = require('path');
-
 const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
@@ -11,7 +10,6 @@ const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require('socket.io');
-
 module.exports = app;
 
 // This is a global Mocha hook, used for resource cleanup.
