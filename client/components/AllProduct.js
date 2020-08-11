@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { allProductThunk } from '../store/allProduct';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { useToasts } from 'react-toast-notifications';
 
 export class AllProduct extends React.Component {
   constructor() {
