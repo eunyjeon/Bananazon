@@ -10,6 +10,13 @@ const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require('socket.io');
+const paymentApi = require('./stripe/payment');
+
+const configureRoutes = (apps) => {
+  paymentApi(apps);
+};
+
+module.exports = configureRoutes;
 module.exports = app;
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -57,7 +64,7 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
     })
   );
   app.use(passport.initialize());
@@ -97,7 +104,8 @@ const createApp = () => {
 const startListening = () => {
   // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () =>
-    console.log(`Mixing it up on port ${PORT}`));
+    console.log(`Mixing it up on port ${PORT}`)
+  );
 
   // set up our socket control center
   const io = socketio(server);
