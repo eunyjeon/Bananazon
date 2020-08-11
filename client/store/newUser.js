@@ -3,14 +3,13 @@ import history from '../history';
 
 const CREATE_USER = 'CREATE USER';
 
-/**
- * INITIAL STATE
- */
 const allUser = [];
 
-export const createUserThunk = (user) => async (dispatch) => {
+const createUser = (user) => ({ type: CREATE_USER, user});
+
+export const createUserThunk = (email, password, firstName, lastName) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`/api/users`, user);
+    const { data } = await axios.post(`/api/users`, { email, password, firstName, lastName });
     dispatch(createUser(data || {}));
     history.push(`/users/${data.id}`);
   } catch (error) {

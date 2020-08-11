@@ -8,7 +8,9 @@ const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
 
-
+/**
+ * INITIAL STATE
+ */
 const defaultUser = {};  // single user
 
 
@@ -17,11 +19,11 @@ const defaultUser = {};  // single user
  */
 const getUser = (user) => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
-const createUser = (user) => ({ type: CREATE_USER, user});
+
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
+export const me = () => async (dispatch) => {error
   try {
     const res = await axios.get('/auth/me');
     dispatch(getUser(res.data || defaultUser));
