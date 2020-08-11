@@ -125,7 +125,7 @@ export class SingleProduct extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   product: state.product,
-  cart: state.cart[0],
+  cart: state.cart,
   user: state.user,
 });
 const mapDispatchToProps = (dispatch) => ({
