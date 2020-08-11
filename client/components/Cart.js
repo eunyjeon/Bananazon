@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getCartThunk } from "../store/cart";
+import { me } from "../store/user";
+
 export class Cart extends Component {
   constructor() {
     super();
@@ -9,10 +11,10 @@ export class Cart extends Component {
   }
 
   componentDidMount() {
-    // hardcoded to test
-    this.props.getCart(13);
-
-    //this.props.getCart(this.props.user.id);
+    if (this.props.user.id) {
+      const userId = this.props.user.id;
+      this.props.getCart(userId);
+    }
   }
 
   submitCartHandler(event) {
@@ -42,12 +44,13 @@ export class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // user: state.user,
+  user: state.user,
   cart: state.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCart: (userId) => dispatch(getCartThunk(userId)),
+  getUser: () => dispatch(me()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
