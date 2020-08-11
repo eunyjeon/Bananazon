@@ -12,7 +12,7 @@ const User = db.define('user', {
       notEmpty: true,
     }
   },
-  password: { // I'm still working on this ~ Mona 
+  password: { // I'm still working on this ~ Mona
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -25,7 +25,7 @@ const User = db.define('user', {
         }
       },
     },
-    
+
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -52,18 +52,18 @@ const User = db.define('user', {
   },
   phoneNumber: {
     type: Sequelize.BIGINT,
-    allowNull: false,
+    // allowNull: false,
     validate: {
       isNumeric: true,
     },
   },
   address: {
     type: Sequelize.STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   paymentInfo: {
     type: Sequelize.BIGINT,
-    allowNull: false,
+    // allowNull: false,
     validate: {
       isCreditCard: true,
     },

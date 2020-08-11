@@ -10,7 +10,7 @@ const CREATE_USER = 'CREATE USER';
 /**
  * INITIAL STATE
  */
-const defaultUser = {};
+const defaultUser = {};  // single user
 const allUser = [];
 
 /**
@@ -18,10 +18,7 @@ const allUser = [];
  */
 const getUser = (user) => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
-const createUser = (user) => ({
-  type: GET_USER,
-  user,
-});
+const createUser = (user) => ({ type: CREATE_USER, user});
 /**
  * THUNK CREATORS
  */
@@ -71,14 +68,37 @@ export const createUserThunk = (user) => async (dispatch) => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser || allUser, action) {
+// export default function (state = defaultUser || allUser, action) {
+//   switch (action.type) {
+//     case GET_USER:
+//       return action.user;
+//     case REMOVE_USER:
+//       return defaultUser;
+//     case CREATE_USER:
+//       return { ...state, allUser: [...state.allUser, action.user] };
+//     default:
+//       return state;
+//   }
+// }
+
+
+
+// can I do this ???
+export function createUserReducer (state = allUser, action) {
+  switch (action.type) {
+    case CREATE_USER:
+      return [...allUser, action.user]
+    default:
+      return state
+  }
+}
+
+export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;
     case REMOVE_USER:
       return defaultUser;
-    case CREATE_USER:
-      return { ...state, allUser: [...state.allUser, action.user] };
     default:
       return state;
   }

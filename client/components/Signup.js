@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { createUserThunk } from "../store/user";
 
 export class Signup extends Component {
 
@@ -77,3 +78,8 @@ export class Signup extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  createUser: (user) => dispatch(createUserThunk(user))
+})
+
+export default connect (null, mapDispatchToProps) (Signup)
