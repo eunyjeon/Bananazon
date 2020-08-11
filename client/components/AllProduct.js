@@ -10,7 +10,7 @@ export class AllProduct extends React.Component {
     super();
     this.addToCartHandler = this.addToCartHandler.bind(this);
   }
-  gi;
+
   componentDidMount() {
     this.props.getAllProducts();
   }
