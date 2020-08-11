@@ -29,9 +29,14 @@ const { Order, OrderItem, Product } = require("../db/models");
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => {
   try {
-    let { userId } = req.body[0];
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
 
-    const notPaidOrders = await Order.findAll({
+    let {userId} = req.body[0];
+
+    const notPaidOrders = await Order.findOne({
       where: {
         isPaid: false,
         userId,
@@ -39,10 +44,9 @@ orderRouter.get("/", async (req, res, next) => {
       include: [{ model: Product }],
     });
 
-    if (notPaidOrders.length < 1) {
+    if (!notPaidOrders) {
       res.json({});
     } else {
-      console.log("THIS IS WHATTTTTTTTTTTTTTTTTTTTT:", notPaidOrders);
       res.json(notPaidOrders);
     }
 
@@ -54,9 +58,13 @@ orderRouter.get("/", async (req, res, next) => {
 
 orderRouter.get("/cart/:userId", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     let userId = req.params.userId;
 
-    const notPaidOrders = await Order.findAll({
+    const notPaidOrders = await Order.findOne({
       where: {
         isPaid: false,
         userId,
@@ -64,11 +72,10 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
       include: [{ model: Product }],
     });
 
-    console.log(notPaidOrders);
-    if (notPaidOrders.length < 1) {
+    if (!notPaidOrders) {
       res.json(false);
     } else {
-      res.json(notPaidOrders[0]);
+      res.json(notPaidOrders);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -80,6 +87,10 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
 // To get the specific order instance/cart info
 orderRouter.get("/:orderId", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
       include: [{ model: Product }],
@@ -93,6 +104,10 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
 orderRouter.post("/", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     const userId = req.body;
     const newOrder = await Order.create(userId);
     res.json(newOrder);
@@ -104,6 +119,11 @@ orderRouter.post("/", async (req, res, next) => {
 // updating products in OrderItems in specific order
 orderRouter.put("/:orderId", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
+
     const orderId = req.params.orderId;
     const { productId, quantity } = req.body; // get back productId, and quantity
 
@@ -113,9 +133,8 @@ orderRouter.put("/:orderId", async (req, res, next) => {
       where: { productId, orderId },
       defaults: { productId, quantity, orderId },
     });
-    console.log(orderItemInfo[0]);
 
-    if (quantity !== orderItemInfo[0].quantity) {
+    if (quantity !== orderItemInfo[0].quantity){ 
       orderItemInfo[0].quantity += quantity;
       await orderItemInfo[0].save();
     }
