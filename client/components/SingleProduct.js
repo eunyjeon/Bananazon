@@ -32,9 +32,17 @@ export class SingleProduct extends Component {
   }
   async addToCartHandler() {
     console.log("Add To Cart Clicked!");
-
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
+    const userId = this.props.user.id;
+    console.log(userId, "able to get userId in props in addToCartHandler");
+    console.log("before creating cart", this.props.cart); // undefined
+    if (this.props.cart === undefined) {
+      await this.props.createCart(userId);
+      await this.props.getCart(userId);
+      console.log("after creating cart", this.props.cart);
+    }
+
     // const userId = window.localStorage.getItem("userId");
     // const userId = 1; // hardcoded for testing
     // await this.props.getCart(userId);
