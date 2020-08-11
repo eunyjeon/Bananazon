@@ -1,7 +1,7 @@
 module.exports = [
   {
     "totalPrice": 8238,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 1
   }, {
     "totalPrice": 3961,
@@ -17,7 +17,7 @@ module.exports = [
     "userId": 9
   }, {
     "totalPrice": 4366,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 2
   }, {
     "totalPrice": 5284,
@@ -29,7 +29,7 @@ module.exports = [
     "userId": 1
   }, {
     "totalPrice": 2132,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 3
   }, {
     "totalPrice": 2767,
@@ -37,7 +37,7 @@ module.exports = [
     "userId": 16
   }, {
     "totalPrice": 2656,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 4
   }, {
     "totalPrice": 1805,
@@ -45,15 +45,15 @@ module.exports = [
     "userId": 7
   }, {
     "totalPrice": 4908,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 5
   }, {
     "totalPrice": 5417,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 6
   }, {
     "totalPrice": 5035,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 7
   }, {
     "totalPrice": 5095,
@@ -61,7 +61,7 @@ module.exports = [
     "userId": 8
   }, {
     "totalPrice": 7833,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 8
   }, {
     "totalPrice": 8537,
@@ -81,7 +81,7 @@ module.exports = [
     "userId": 7
   }, {
     "totalPrice": 4090,
-    "isPaid": false,
+    "isPaid": true,
     "userId": 9
   }, {
     "totalPrice": 7980,
@@ -91,317 +91,5 @@ module.exports = [
     "totalPrice": 8827,
     "isPaid": true,
     "userId": 7
-  }, {
-    "totalPrice": 9552,
-    "isPaid": false,
-    "userId": 10
-  }, {
-    "totalPrice": 4231,
-    "isPaid": false,
-    "userId": 11
-  }, {
-    "totalPrice": 3266,
-    "isPaid": false,
-    "userId": 12
-  }, {
-    "totalPrice": 2777,
-    "isPaid": true,
-    "userId": 28
-  }, {
-    "totalPrice": 7381,
-    "isPaid": false,
-    "userId": 13
-  }, {
-    "totalPrice": 3181,
-    "isPaid": false,
-    "userId": 14
-  }, {
-    "totalPrice": 1060,
-    "isPaid": false,
-    "userId": 15
-  }, {
-    "totalPrice": 8580,
-    "userId": 20,
-    "isPaid": true
-  }, {
-    "totalPrice": 4410,
-    "userId": 14,
-    "isPaid": true
-  }, {
-    "totalPrice": 9295,
-    "userId": 27,
-    "isPaid": true
-  }, {
-    "totalPrice": 8097,
-    "userId": 21,
-    "isPaid": true
-  }, {
-    "totalPrice": 4329,
-    "userId": 24,
-    "isPaid": true
-  }, {
-    "totalPrice": 9438,
-    "userId": 30,
-    "isPaid": true
-  }, {
-    "totalPrice": 2288,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 3002,
-    "userId": 19,
-    "isPaid": true
-  }, {
-    "totalPrice": 1572,
-    "userId": 16,
-    "isPaid": true
-  }, {
-    "totalPrice": 7523,
-    "userId": 21,
-    "isPaid": true
-  }, {
-    "totalPrice": 7122,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 6390,
-    "userId": 19,
-    "isPaid": true
-  }, {
-    "totalPrice": 2809,
-    "userId": 20,
-    "isPaid": true
-  }, {
-    "totalPrice": 2092,
-    "userId": 5,
-    "isPaid": true
-  }, {
-    "totalPrice": 2088,
-    "userId": 19,
-    "isPaid": true
-  }, {
-    "totalPrice": 5868,
-    "userId": 4,
-    "isPaid": true
-  }, {
-    "totalPrice": 5102,
-    "userId": 23,
-    "isPaid": true
-  }, {
-    "totalPrice": 574,
-    "userId": 19,
-    "isPaid": true
-  }, {
-    "totalPrice": 139,
-    "userId": 27,
-    "isPaid": true
-  }, {
-    "totalPrice": 1030,
-    "userId": 2,
-    "isPaid": true
-  }, {
-    "totalPrice": 6810,
-    "userId": 18,
-    "isPaid": true
-  }, {
-    "totalPrice": 1325,
-    "userId": 29,
-    "isPaid": true
-  }, {
-    "totalPrice": 5096,
-    "userId": 28,
-    "isPaid": true
-  }, {
-    "totalPrice": 6520,
-    "userId": 15,
-    "isPaid": true
-  }, {
-    "totalPrice": 343,
-    "userId": 20,
-    "isPaid": true
-  }, {
-    "totalPrice": 1054,
-    "userId": 26,
-    "isPaid": true
-  }, {
-    "totalPrice": 6574,
-    "userId": 30,
-    "isPaid": true
-  }, {
-    "totalPrice": 1194,
-    "userId": 28,
-    "isPaid": true
-  }, {
-    "totalPrice": 4339,
-    "userId": 26,
-    "isPaid": true
-  }, {
-    "totalPrice": 3038,
-    "userId": 17,
-    "isPaid": true
-  }, {
-    "totalPrice": 7921,
-    "userId": 21,
-    "isPaid": true
-  }, {
-    "totalPrice": 3674,
-    "userId": 29,
-    "isPaid": true
-  }, {
-    "totalPrice": 1531,
-    "userId": 5,
-    "isPaid": true
-  }, {
-    "totalPrice": 4491,
-    "userId": 15,
-    "isPaid": true
-  }, {
-    "totalPrice": 7176,
-    "userId": 30,
-    "isPaid": true
-  }, {
-    "totalPrice": 8278,
-    "userId": 11,
-    "isPaid": true
-  }, {
-    "totalPrice": 5798,
-    "userId": 15,
-    "isPaid": true
-  }, {
-    "totalPrice": 6778,
-    "userId": 26,
-    "isPaid": true
-  }, {
-    "totalPrice": 5672,
-    "userId": 26,
-    "isPaid": true
-  }, {
-    "totalPrice": 7210,
-    "userId": 23,
-    "isPaid": true
-  }, {
-    "totalPrice": 8029,
-    "userId": 1,
-    "isPaid": true
-  }, {
-    "totalPrice": 4336,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 9251,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 2240,
-    "userId": 5,
-    "isPaid": true
-  }, {
-    "totalPrice": 3590,
-    "userId": 27,
-    "isPaid": true
-  }, {
-    "totalPrice": 4813,
-    "userId": 28,
-    "isPaid": true
-  }, {
-    "totalPrice": 5803,
-    "userId": 6,
-    "isPaid": true
-  }, {
-    "totalPrice": 6994,
-    "userId": 14,
-    "isPaid": true
-  }, {
-    "totalPrice": 1874,
-    "userId": 2,
-    "isPaid": true
-  }, {
-    "totalPrice": 537,
-    "userId": 20,
-    "isPaid": true
-  }, {
-    "totalPrice": 474,
-    "userId": 30,
-    "isPaid": true
-  }, {
-    "totalPrice": 6171,
-    "userId": 29,
-    "isPaid": true
-  }, {
-    "totalPrice": 7845,
-    "userId": 24,
-    "isPaid": true
-  }, {
-    "totalPrice": 2820,
-    "userId": 14,
-    "isPaid": true
-  }, {
-    "totalPrice": 2575,
-    "userId": 11,
-    "isPaid": true
-  }, {
-    "totalPrice": 2628,
-    "userId": 17,
-    "isPaid": true
-  }, {
-    "totalPrice": 989,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 7900,
-    "userId": 1,
-    "isPaid": true
-  }, {
-    "totalPrice": 5908,
-    "userId": 25,
-    "isPaid": true
-  }, {
-    "totalPrice": 6684,
-    "userId": 5,
-    "isPaid": true
-  }, {
-    "totalPrice": 1884,
-    "userId": 26,
-    "isPaid": true
-  }, {
-    "totalPrice": 2837,
-    "userId": 28,
-    "isPaid": true
-  }, {
-    "totalPrice": 3890,
-    "userId": 6,
-    "isPaid": true
-  }, {
-    "totalPrice": 6290,
-    "userId": 1,
-    "isPaid": true
-  }, {
-    "totalPrice": 1756,
-    "userId": 18,
-    "isPaid": true
-  }, {
-    "totalPrice": 8819,
-    "userId": 12,
-    "isPaid": true
-  }, {
-    "totalPrice": 4210,
-    "userId": 15,
-    "isPaid": true
-  }, {
-    "totalPrice": 4992,
-    "userId": 9,
-    "isPaid": true
-  }, {
-    "totalPrice": 3139,
-    "userId": 3,
-    "isPaid": true
-  }, {
-    "totalPrice": 4940,
-    "userId": 29,
-    "isPaid": true
-  }, {
-    "totalPrice": 9820,
-    "userId": 8,
-    "isPaid": true
   }
 ]

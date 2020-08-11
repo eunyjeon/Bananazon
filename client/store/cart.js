@@ -29,7 +29,7 @@ const addToCart = (cart) => ({ type: ADD_TO_CART, cart });
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/orders/cart/${userId}`);
-    console.log(res.data)
+    console.log(res.data);
     dispatch(getCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -55,7 +55,7 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
       productId,
       quantity,
     });
-    console.log(res)
+    console.log("console log res from add To cart thunk", res.data);
     dispatch(addToCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
