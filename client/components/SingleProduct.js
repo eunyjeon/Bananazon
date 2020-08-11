@@ -7,6 +7,7 @@ import {
   decreaseQuantity,
 } from "../store/singleProduct";
 import { getCartThunk, createCartThunk, addToCartThunk } from "../store/cart";
+import { me } from "../store/user";
 
 export class SingleProduct extends Component {
   constructor() {
@@ -20,13 +21,14 @@ export class SingleProduct extends Component {
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
     this.addToCartHandler = this.addToCartHandler.bind(this);
-    this.cartChecker = this.cartChecker.bind(this);
   }
 
-  cartChecker() {}
-
-  componentDidMount() {
-    this.props.getSingleProduct(this.props.match.params.id);
+  async componentDidMount() {
+    await this.props.getSingleProduct(this.props.match.params.id);
+    await this.props.getUser();
+    if (this.props.user) {
+      await this.props.getCart(this.props.user.id);
+    }
   }
   async addToCartHandler() {
     console.log("Add To Cart Clicked!");
@@ -34,19 +36,19 @@ export class SingleProduct extends Component {
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
     // const userId = window.localStorage.getItem("userId");
-    const userId = 1; // hardcoded for testing
-    await this.props.getCart(userId);
-    if (this.props.cart == false) {
-      await this.props.createCart(userId);
-      await this.props.getCart(userId);
-      const orderId = this.props.cart[0].id;
-      await this.props.addToCart(orderId, productId, quantity);
-    } else {
-      const orderId = this.props.cart[0].id;
+    // const userId = 1; // hardcoded for testing
+    // await this.props.getCart(userId);
+    // if (this.props.cart == false) {
+    //   await this.props.createCart(userId);
+    //   await this.props.getCart(userId);
+    //   const orderId = this.props.cart[0].id;
+    //   await this.props.addToCart(orderId, productId, quantity);
+    // } else {
+    //   const orderId = this.props.cart[0].id;
 
-      await this.props.addToCart(orderId, productId, quantity);
-    }
-    console.log("this.props.cart", this.props.cart);
+    //   await this.props.addToCart(orderId, productId, quantity);
+    // }
+    // console.log("this.props.cart", this.props.cart);
   }
 
   increase() {
@@ -110,12 +112,14 @@ export class SingleProduct extends Component {
 //
 const mapStateToProps = (state) => ({
   product: state.product,
-  cart: state.cart,
+  cart: state.cart[0],
+  user: state.user,
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
   increaseQuantity: (id) => dispatch(increaseQuantity(id)),
   decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
+  getUser: () => dispatch(me()),
   getCart: (userId) => dispatch(getCartThunk(userId)),
   createCart: (userId) => dispatch(createCartThunk(userId)),
   addToCart: (orderId, productId, quantity) =>
