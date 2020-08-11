@@ -23,7 +23,6 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { error } = this.props;
     return (
       <div>
         <form onSubmit={this.submitHandler}>
