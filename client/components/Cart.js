@@ -8,9 +8,9 @@ export class Cart extends Component {
     this.submitCartHandler = this.submitCartHandler.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // hardcoded to test
-    this.props.getCart(13);
+    await this.props.getCart(this.props.user.id);
 
     //this.props.getCart(this.props.user.id);
   }
@@ -44,7 +44,7 @@ export class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // user: state.user,
+  user: state.user,
   cart: state.cart['0'],
 });
 

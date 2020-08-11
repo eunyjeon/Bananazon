@@ -36,13 +36,13 @@ export class SingleProduct extends Component {
     // const userId = window.localStorage.getItem("userId");
     const userId = 1; // hardcoded for testing
     await this.props.getCart(userId);
-    if (this.props.cart == false) {
+    if (this.props.cart === {}) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
-      const orderId = this.props.cart[0].id;
+      const orderId = this.props.cart.id;
       await this.props.addToCart(orderId, productId, quantity);
     } else {
-      const orderId = this.props.cart[0].id;
+      const orderId = this.props.cart.id;
 
       await this.props.addToCart(orderId, productId, quantity);
     }
@@ -91,11 +91,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <NavLink to="/cart">
+          {/* <NavLink to="/cart"> maybe have alert to confirm product was added and a link to carts page */}
           <button type="submit" onClick={this.addToCartHandler}>
             Add To Cart
           </button>
-          </NavLink>
+          {/* </NavLink> */}
         </div>
       </div>
     );
@@ -110,7 +110,7 @@ export class SingleProduct extends Component {
 //
 const mapStateToProps = (state) => ({
   product: state.product,
-  cart: state.cart,
+  cart: state.cart['0'],
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
