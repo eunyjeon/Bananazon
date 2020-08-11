@@ -27,7 +27,7 @@ const { Order, OrderItem, Product } = require("../db/models");
 // });
 
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
-orderRouter.get("/", async (req, res, next) => { // LET TAIHUA KNOW I CHANGED EAGERLY LOADING TO ORDERITEM
+orderRouter.get("/", async (req, res, next) => {
   try {
     let {userId} = req.body[0];
 
@@ -103,8 +103,8 @@ orderRouter.post("/", async (req, res, next) => {
   }
 });
 
-// updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
+// updating products in OrderItems in specific order 
+orderRouter.put("/:orderId", async (req, res, next) => { 
   try {
     const orderId = req.params.orderId;
     const { productId, quantity } = req.body; // get back productId, and quantity 
