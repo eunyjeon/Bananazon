@@ -29,7 +29,7 @@ const { Order, OrderItem, Product } = require("../db/models");
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => {
   try {
-    let {userId} = req.body[0];
+    let { userId } = req.body[0];
 
     const notPaidOrders = await Order.findAll({
       where: {
@@ -42,7 +42,7 @@ orderRouter.get("/", async (req, res, next) => {
     if (notPaidOrders.length < 1) {
       res.json({});
     } else {
-      console.log('THIS IS WHATTTTTTTTTTTTTTTTTTTTT:', notPaidOrders)
+      console.log("THIS IS WHATTTTTTTTTTTTTTTTTTTTT:", notPaidOrders);
       res.json(notPaidOrders);
     }
 
@@ -59,7 +59,7 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId
+        userId,
       },
       include: [{ model: Product }],
     });
@@ -68,7 +68,7 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
     if (notPaidOrders.length < 1) {
       res.json(false);
     } else {
-      res.json(notPaidOrders);
+      res.json(notPaidOrders[0]);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -85,7 +85,6 @@ orderRouter.get("/:orderId", async (req, res, next) => {
       include: [{ model: Product }],
     });
     res.json(order); // should send back order instance with orderItem information
-    
   } catch (error) {
     next(error);
   }
@@ -97,33 +96,32 @@ orderRouter.post("/", async (req, res, next) => {
     const userId = req.body;
     const newOrder = await Order.create(userId);
     res.json(newOrder);
-
   } catch (error) {
     next(error);
   }
 });
 
-// updating products in OrderItems in specific order 
-orderRouter.put("/:orderId", async (req, res, next) => { 
+// updating products in OrderItems in specific order
+orderRouter.put("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
-    const { productId, quantity } = req.body; // get back productId, and quantity 
+    const { productId, quantity } = req.body; // get back productId, and quantity
 
     // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
     // YES, UPDATE, NO CREATE
-    const orderItemInfo = await OrderItem.findOrCreate({ 
-      where: {productId, orderId },
-      defaults: {productId, quantity, orderId}
+    const orderItemInfo = await OrderItem.findOrCreate({
+      where: { productId, orderId },
+      defaults: { productId, quantity, orderId },
     });
-    console.log(orderItemInfo[0])
+    console.log(orderItemInfo[0]);
 
-    if (quantity !== orderItemInfo[0].quantity){ 
-      orderItemInfo[0].quantity = quantity;
+    if (quantity !== orderItemInfo[0].quantity) {
+      orderItemInfo[0].quantity += quantity;
       await orderItemInfo[0].save();
     }
 
     const updatedOrder = await Order.findByPk(orderId, {
-      include: [{ model: Product }]
+      include: [{ model: Product }],
     });
 
     res.json(updatedOrder);
