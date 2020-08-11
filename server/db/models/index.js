@@ -17,6 +17,8 @@ Order.belongsTo(User);
 Order.belongsToMany(Product, { through: "orderItem" });
 Product.belongsToMany(Order, { through: "orderItem" });
 
+Order.hasMany(OrderItem);
+
 User.hasMany(Review);
 Review.belongsTo(User);
 
