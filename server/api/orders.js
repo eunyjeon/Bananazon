@@ -106,24 +106,25 @@ orderRouter.post("/", async (req, res, next) => {
 orderRouter.put("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
   try {
     const orderId = req.params.orderId;
-    // const updatingThisOrder = await Order.findByPk(orderId, {
-    //   include: [{ model: Product }],
-    // });
-    // console.log("put route in api, before ", updatingThisOrder);
     const { productId, quantity } = req.body; // get back productId, and quantity 
+
     // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
     // YES, UPDATE, NO CREATE
+    const orderItemInfo = await OrderItem.findOrCreate({ 
+      where: {productId, orderId },
+      defaults: {productId, quantity, orderId}
+    });
+    console.log(orderItemInfo[0])
 
-    const newOrderItem = await OrderItem.create({ productId, quantity, orderId }); // SHOULD ALSO INCLUDE ORDERID
-    console.log(newOrderItem)
+    if (quantity !== orderItemInfo[0].quantity){ 
+      orderItemInfo[0].quantity = quantity;
+      await orderItemInfo[0].save();
+    }
+
     const updatedOrder = await Order.findByPk(orderId, {
       include: [{ model: Product }]
     });
-    console.log(updatedOrder)
 
-    // const updatedOrder = await updatingThisOrder.update(newInfo);
-    // console.log("put route in api, after", updatedOrder);
-    // updatedOrder.save();
     res.json(updatedOrder);
   } catch (error) {
     next(error);
