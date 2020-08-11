@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import { createUserThunk } from '../store/newUser';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createUserThunk } from "../store/newUser";
 
 class SignupForm extends Component {
   constructor() {
