@@ -41,10 +41,10 @@ export class Cart extends Component {
                 ))
               : `Your cart is empty`}
           </div>
-          <NavLink to="/confirmationPage">
+          <NavLink to="/checkout">
             <button type="submit" onClick={this.submitCartHandler}>
               {' '}
-              Submit You Order!{' '}
+              Proceed to Checkout!{' '}
             </button>
           </NavLink>
         </div>

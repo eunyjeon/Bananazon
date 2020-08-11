@@ -2,8 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 
-import STRIPE_PUBLISHABLE from './constants/stripe';
-import PAYMENT_SERVER_URL from './constants/server';
+// import STRIPE_PUBLISHABLE from './constants/stripe';
+// import PAYMENT_SERVER_URL from './constants/server';
+const STRIPE_PUBLISHABLE =
+  process.env.NODE_ENV === 'production'
+    ? 'pk_test_51HF04kIlCHoBp0F6DoZKPgjEGhuCSTFpw6yuJK8MTvf6JoQKwUtPj9tAc4pGJEco1aUy5f0pF7OFpB2uAyVswCsq00iQ6HtvF4'
+    : 'pk_test_51HF04kIlCHoBp0F6DoZKPgjEGhuCSTFpw6yuJK8MTvf6JoQKwUtPj9tAc4pGJEco1aUy5f0pF7OFpB2uAyVswCsq00iQ6HtvF4';
+const PAYMENT_SERVER_URL =
+  process.env.NODE_ENV === 'production' ? '/api/stripe' : '/api/stripe';
 
 const CURRENCY = 'USD';
 

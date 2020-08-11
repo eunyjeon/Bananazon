@@ -17,6 +17,7 @@ export class AllProduct extends React.Component {
 
   addToCartHandler(event) {
     console.log('Add To Cart Clicked!');
+    alert('Added to Cart'); // will hopefully be toast notification
   }
 
   render() {
