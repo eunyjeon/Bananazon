@@ -18,8 +18,7 @@ export const createUserThunk = (user) => async (dispatch) => {
   }
 };
 
-// can I do this ???
-export default function createUserReducer (state = allUser, action) {
+export default function (state = allUser, action) {
   switch (action.type) {
     case CREATE_USER:
       return [...allUser, action.user]

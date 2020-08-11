@@ -6,12 +6,11 @@ import history from '../history';
  */
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
-const CREATE_USER = 'CREATE USER';
-/**
- * INITIAL STATE
- */
+
+
+
 const defaultUser = {};  // single user
-const allUser = [];
+
 
 /**
  * ACTION CREATORS
@@ -56,43 +55,10 @@ export const logout = () => async (dispatch) => {
     console.error(err);
   }
 };
-export const createUserThunk = (user) => async (dispatch) => {
-  try {
-    const { data } = await axios.post(`/api/users`, user);
-    dispatch(createUser(data || {}));
-    history.push(`/users/${data.id}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
+
 /**
  * REDUCER
  */
-// export default function (state = defaultUser || allUser, action) {
-//   switch (action.type) {
-//     case GET_USER:
-//       return action.user;
-//     case REMOVE_USER:
-//       return defaultUser;
-//     case CREATE_USER:
-//       return { ...state, allUser: [...state.allUser, action.user] };
-//     default:
-//       return state;
-//   }
-// }
-
-
-
-// can I do this ???
-export function createUserReducer (state = allUser, action) {
-  switch (action.type) {
-    case CREATE_USER:
-      return [...allUser, action.user]
-    default:
-      return state
-  }
-}
-
 export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:

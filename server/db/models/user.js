@@ -10,20 +10,21 @@ const User = db.define('user', {
     validate: {
       isEmail: true,
       notEmpty: true,
-    }
+    },
   },
-  password: { // I'm still working on this ~ Mona
+  password: {
+    // I'm still working on this ~ Mona - also look at security workshop
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
-      isGood(value) {
-        if (this.password.length < 8) {
-          throw new Error('Password must be at least 8 characters')
-          // we also are in the model's context here, so this.otherField
-          // would get the value of otherField if it existed
-        }
-      },
+      // isGood(value) {
+      //   if (this.password.length < 8) {
+      //     throw new Error('Password must be at least 8 characters');
+      //     // we also are in the model's context here, so this.otherField
+      //     // would get the value of otherField if it existed
+      //   }
+      // },
     },
 
     // Making `.password` act like a func hides it when serializing to JSON.
