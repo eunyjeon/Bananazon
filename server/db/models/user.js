@@ -10,22 +10,23 @@ const User = db.define('user', {
     validate: {
       isEmail: true,
       notEmpty: true,
-    }
+    },
   },
-  password: { // I'm still working on this ~ Mona - also look at security workshop
+  password: {
+    // I'm still working on this ~ Mona - also look at security workshop
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
       // isGood(value) {
       //   if (this.password.length < 8) {
-      //     throw new Error('Password must be at least 8 characters')
+      //     throw new Error('Password must be at least 8 characters');
       //     // we also are in the model's context here, so this.otherField
       //     // would get the value of otherField if it existed
       //   }
       // },
     },
-    
+
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -43,31 +44,31 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING,
   },
-  firstName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  lastName: {
-    type: Sequelize.STRING,
-  },
-  phoneNumber: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    validate: {
-      isNumeric: true,
-    },
-  },
-  address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  paymentInfo: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    validate: {
-      isCreditCard: true,
-    },
-  },
+  // firstName: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false,
+  // },
+  // lastName: {
+  //   type: Sequelize.STRING,
+  // },
+  // phoneNumber: {
+  //   type: Sequelize.BIGINT,
+  //   allowNull: false,
+  //   validate: {
+  //     isNumeric: true,
+  //   },
+  // },
+  // address: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false,
+  // },
+  // paymentInfo: {
+  //   type: Sequelize.BIGINT,
+  //   allowNull: false,
+  //   validate: {
+  //     isCreditCard: true,
+  //   },
+  // },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,

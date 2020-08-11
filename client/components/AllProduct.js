@@ -1,7 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { allProductThunk } from "../store/allProduct";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { allProductThunk } from '../store/allProduct';
+// import { useToasts } from 'react-toast-notifications';
+// import { ToastDemo } from './Toast';
 
 export class AllProduct extends React.Component {
   constructor() {
@@ -14,8 +16,8 @@ export class AllProduct extends React.Component {
   }
 
   addToCartHandler(event) {
-    console.log("Add To Cart Clicked!");
-
+    console.log('Add To Cart Clicked!');
+    alert('Added to Cart'); // will hopefully be toast notification
   }
 
   render() {
@@ -31,6 +33,7 @@ export class AllProduct extends React.Component {
               <img src={product.imageUrl} />
               <h3>Price : ${product.price}</h3>
             </Link>
+
             <button onClick={this.addToCartHandler}> Add To Cart</button>
           </div>
         ))}
