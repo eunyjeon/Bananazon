@@ -29,20 +29,21 @@ const { Order, OrderItem, Product } = require("../db/models");
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => { // LET TAIHUA KNOW I CHANGED EAGERLY LOADING TO ORDERITEM
   try {
-    let userId = req.body;
+    let {userId} = req.body[0];
 
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId: userId[0],
+        userId,
       },
-      include: [{ model: OrderItem }],
+      include: [{ model: Product }],
     });
 
     if (notPaidOrders.length < 1) {
       res.json({});
     } else {
-      res.json(notPaidOrders[0]);
+      console.log('THIS IS WHATTTTTTTTTTTTTTTTTTTTT:', notPaidOrders)
+      res.json(notPaidOrders);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -58,7 +59,7 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId: userId,
+        userId
       },
       include: [{ model: Product }],
     });
@@ -81,9 +82,10 @@ orderRouter.get("/:orderId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
-      include: [{ model: OrderItem }],
+      include: [{ model: Product }],
     });
     res.json(order); // should send back order instance with orderItem information
+    
   } catch (error) {
     next(error);
   }
@@ -93,10 +95,9 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 orderRouter.post("/", async (req, res, next) => {
   try {
     const userId = req.body;
-    console.log("body!!!!!!!!!!!!!!", req.body);
     const newOrder = await Order.create(userId);
-    console.log(newOrder, "newOrder from api post route");
     res.json(newOrder);
+
   } catch (error) {
     next(error);
   }
