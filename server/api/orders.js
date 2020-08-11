@@ -27,14 +27,14 @@ const { Order, OrderItem, Product } = require("../db/models");
 // });
 
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
-orderRouter.get("/", async (req, res, next) => {
+orderRouter.get("/", async (req, res, next) => { // LET TAIHUA KNOW I CHANGED EAGERLY LOADING TO ORDERITEM
   try {
-    let userId = req.body;
+    let {userId} = req.body[0];
 
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId: userId[0],
+        userId,
       },
       include: [{ model: Product }],
     });
@@ -42,7 +42,8 @@ orderRouter.get("/", async (req, res, next) => {
     if (notPaidOrders.length < 1) {
       res.json({});
     } else {
-      res.json(notPaidOrders[0]);
+      console.log('THIS IS WHATTTTTTTTTTTTTTTTTTTTT:', notPaidOrders)
+      res.json(notPaidOrders);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -58,7 +59,7 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
     const notPaidOrders = await Order.findAll({
       where: {
         isPaid: false,
-        userId: userId,
+        userId
       },
       include: [{ model: Product }],
     });
@@ -84,6 +85,7 @@ orderRouter.get("/:orderId", async (req, res, next) => {
       include: [{ model: Product }],
     });
     res.json(order); // should send back order instance with orderItem information
+    
   } catch (error) {
     next(error);
   }
@@ -93,33 +95,37 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 orderRouter.post("/", async (req, res, next) => {
   try {
     const userId = req.body;
-    console.log("body!!!!!!!!!!!!!!", req.body);
     const newOrder = await Order.create(userId);
-    console.log(newOrder, "newOrder from api post route");
     res.json(newOrder);
+
   } catch (error) {
     next(error);
   }
 });
 
 // updating products in OrderItems in specific order
-orderRouter.post("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
+orderRouter.put("/:orderId", async (req, res, next) => { // I'm still working on this too ~ mona
   try {
     const orderId = req.params.orderId;
-    // const updatingThisOrder = await Order.findByPk(orderId, {
-    //   include: [{ model: Product }],
-    // });
-    // console.log("put route in api, before ", updatingThisOrder);
-    const newInfo = req.body; // get back productId, and quantity
-    console.log("new info", newInfo);
+    const { productId, quantity } = req.body; // get back productId, and quantity 
 
-    await OrderItem.create(newInfo);
-    const updatedOrder = await Order.findByPk(orderId);
-    console.log(updatedOrder)
+    // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
+    // YES, UPDATE, NO CREATE
+    const orderItemInfo = await OrderItem.findOrCreate({ 
+      where: {productId, orderId },
+      defaults: {productId, quantity, orderId}
+    });
+    console.log(orderItemInfo[0])
 
-    // const updatedOrder = await updatingThisOrder.update(newInfo);
-    // console.log("put route in api, after", updatedOrder);
-    // updatedOrder.save();
+    if (quantity !== orderItemInfo[0].quantity){ 
+      orderItemInfo[0].quantity = quantity;
+      await orderItemInfo[0].save();
+    }
+
+    const updatedOrder = await Order.findByPk(orderId, {
+      include: [{ model: Product }]
+    });
+
     res.json(updatedOrder);
   } catch (error) {
     next(error);
