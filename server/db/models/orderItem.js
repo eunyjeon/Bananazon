@@ -13,14 +13,14 @@ const OrderItem = db.define('orderItem', {
   },
   subtotal: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    defaultValue: 0,
     validate: {
       min: 0,
     },
-    get() {
-      const rawValue = this.getDataValue('subtotal');
-      return rawValue && (rawValue / 100).toFixed(2);
-    },
+    // get() {
+    //   const rawValue = this.getDataValue('subtotal');
+    //   return rawValue && (rawValue / 100).toFixed(2);
+    // },
   },
 });
 
@@ -29,10 +29,10 @@ const OrderItem = db.define('orderItem', {
 //   this.subtotal = itemPrice * this.quantity
 // }
 
-OrderItem.beforeSave((orderItemInstance) => {
-  const quantity = orderItemInstance.quantity;
+OrderItem.beforeSave(() => {
+  const quantity = this.quantity;
   const productPrice = Product.findByPk(this.productId).price;
-  orderItemInstance.subtotal = quantity * productPrice;
+  this.subtotal = quantity * productPrice;
 })
 
 module.exports = OrderItem;

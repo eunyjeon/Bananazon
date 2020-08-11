@@ -11,6 +11,7 @@ export class Cart extends Component {
   }
 
   componentDidMount() {
+    this.props.getUser();
     if (this.props.user.id) {
       const userId = this.props.user.id;
       this.props.getCart(userId);
@@ -22,15 +23,22 @@ export class Cart extends Component {
   }
 
   render() {
-    console.log("cart? props", this.props);
-    const cart = this.props.cart[0];
-    if (cart !== undefined) {
+    console.log("cart props", this.props);
+    // console.log("cart? props", this.props);
+    const cart = this.props.cart; // array like object
+    if (cart && cart !== undefined) {
       const products = cart.products;
+      // console.log('WHAT IS THIS PRODUCT', products)
     }
     return (
       <div>
         <div>
           <h1>Your Shopping Cart! 🛒</h1>
+          <div>
+            {cart && cart.products
+              ? cart.products.map((product) => <div>{product.name}</div>)
+              : `Your cart is empty`}
+          </div>
           <NavLink to="/confirmationPage">
             <button type="submit" onClick={this.submitCartHandler}>
               {" "}
@@ -45,7 +53,7 @@ export class Cart extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  cart: state.cart,
+  cart: state.cart["0"],
 });
 
 const mapDispatchToProps = (dispatch) => ({
