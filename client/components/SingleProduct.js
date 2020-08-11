@@ -36,13 +36,12 @@ export class SingleProduct extends Component {
     const quantity = this.state.quantity;
     // const userId = window.localStorage.getItem("userId");
 
-    if (!this.props.user.id){
-      window.localStorage.setItem(productId, quantity)
-      console.log('LOCALSTORAGE STUFF', window.localStorage)
-      return 'your item is added to cart'
-    } 
+    if (!this.props.user.id) {
+      window.localStorage.setItem(productId, quantity);
+      console.log("LOCALSTORAGE STUFF", window.localStorage);
+      return "your item is added to cart";
+    }
 
-    
     const userId = this.props.user.id;
     console.log("able to get userId in props in addToCartHandler", userId);
     console.log("cart before creating cart", this.props.cart); // undefined
@@ -126,7 +125,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   product: state.product,
   cart: state.cart,
-  user: state.user,
 });
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),

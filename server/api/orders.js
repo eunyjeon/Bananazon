@@ -47,7 +47,6 @@ orderRouter.get("/", async (req, res, next) => {
     if (!notPaidOrders) {
       res.json({});
     } else {
-
       res.json(notPaidOrders);
     }
 
@@ -68,12 +67,10 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
     const notPaidOrders = await Order.findOne({
       where: {
         isPaid: false,
-        userId:31
+        userId,
       },
       include: [{ model: Product }],
     });
-
-    console.log(notPaidOrders)
 
     if (!notPaidOrders) {
       res.json(false);
@@ -99,7 +96,6 @@ orderRouter.get("/:orderId", async (req, res, next) => {
       include: [{ model: Product }],
     });
     res.json(order); // should send back order instance with orderItem information
-    
   } catch (error) {
     next(error);
   }
@@ -115,14 +111,13 @@ orderRouter.post("/", async (req, res, next) => {
     const userId = req.body;
     const newOrder = await Order.create(userId);
     res.json(newOrder);
-
   } catch (error) {
     next(error);
   }
 });
 
-// updating products in OrderItems in specific order 
-orderRouter.put("/:orderId", async (req, res, next) => { 
+// updating products in OrderItems in specific order
+orderRouter.put("/:orderId", async (req, res, next) => {
   try {
     if (!req.user) {
       const error = new Error(`Who are you?`);
@@ -130,13 +125,13 @@ orderRouter.put("/:orderId", async (req, res, next) => {
     }
 
     const orderId = req.params.orderId;
-    const { productId, quantity } = req.body; // get back productId, and quantity 
+    const { productId, quantity } = req.body; // get back productId, and quantity
 
     // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
     // YES, UPDATE, NO CREATE
-    const orderItemInfo = await OrderItem.findOrCreate({ 
-      where: {productId, orderId },
-      defaults: {productId, quantity, orderId}
+    const orderItemInfo = await OrderItem.findOrCreate({
+      where: { productId, orderId },
+      defaults: { productId, quantity, orderId },
     });
 
     if (quantity !== orderItemInfo[0].quantity){ 
@@ -145,7 +140,7 @@ orderRouter.put("/:orderId", async (req, res, next) => {
     }
 
     const updatedOrder = await Order.findByPk(orderId, {
-      include: [{ model: Product }]
+      include: [{ model: Product }],
     });
 
     res.json(updatedOrder);
