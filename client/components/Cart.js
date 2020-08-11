@@ -23,8 +23,16 @@ export class Cart extends Component {
     console.log("clicked item buttons");
   }
 
-  deleteHandler() {
+  async deleteHandler(productId) {
     console.log("deleting");
+
+    if (this.props.cart.id !== undefined) {
+      const orderId = this.props.cart.id;
+      console.log("product in delete", productId);
+      await this.props.deleteItem(orderId, productId);
+    }
+    // const orderId = this.props.cart.id;
+    // await this.props.deleteItem(orderId, productId);
   }
   submitCartHandler(event) {
     console.log("Submit Cart Clicked!");
@@ -62,7 +70,10 @@ export class Cart extends Component {
                     >
                       -
                     </button>
-                    <button type="button" onClick={this.deleteHandler}>
+                    <button
+                      type="button"
+                      onClick={() => this.deleteHandler(product.id)}
+                    >
                       Remove From Cart
                     </button>
                   </div>

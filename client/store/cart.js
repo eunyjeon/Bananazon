@@ -66,7 +66,7 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
 
 export const deleteFromCartThunk = (orderId, productId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/orders/${orderId}`, { productId });
+    const res = await axios.delete(`/api/orders/${orderId}/${productId}`);
     console.log("res from deleteFromCartThunk", res.data);
     dispatch(deleteFromCart(res.data) || defaultCart);
   } catch (err) {

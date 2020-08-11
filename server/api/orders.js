@@ -102,7 +102,7 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => {
+orderRouter.put("/:orderId/", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const { productId, quantity } = req.body; // get back productId, and quantity
@@ -130,15 +130,19 @@ orderRouter.put("/:orderId", async (req, res, next) => {
   }
 });
 
-orderRouter.delete("/:orderId", async (req, res, next) => {
+orderRouter.delete("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
-    const { productId } = req.body; // get back productId, and quantity
-    const deletedCart = await OrderItem.delete({
+    console.log(req.body, "req.body from delete routeeeeeee");
+    const productId = req.params.productId; // get back productId, and quantity
+    await OrderItem.destroy({
       where: { productId, orderId },
     });
-    console.log(deletedCart, "deleted cart in api");
-    res.json(deletedCart);
+    // get cart again after delete
+    const order = await Order.findByPk(orderId, {
+      include: [{ model: Product }],
+    });
+    res.json(order); // should send back order instance with orderItem information
   } catch (err) {
     next(err);
   }
