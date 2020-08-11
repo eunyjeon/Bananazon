@@ -8,7 +8,7 @@ const CheckoutPage = (props) => {
   // const cart = props.cart.product ?<-- need to access cart here
   return (
     <div>
-      <div>Shipping and Contact Info Goes Here!</div>
+      <div>Shipping and Contact Info Form Goes Here!</div>
       <Checkout
         name="Confirm your Order"
         description={
