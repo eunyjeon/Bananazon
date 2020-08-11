@@ -130,4 +130,18 @@ orderRouter.put("/:orderId", async (req, res, next) => {
   }
 });
 
+orderRouter.delete("/:orderId", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const { productId } = req.body; // get back productId, and quantity
+    const deletedCart = await OrderItem.delete({
+      where: { productId, orderId },
+    });
+    console.log(deletedCart, "deleted cart in api");
+    res.json(deletedCart);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = orderRouter;

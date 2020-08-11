@@ -30,6 +30,12 @@ form div {
   margin: 10px;
 }
 
+.cartItem {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+}
+
 nav {
   background-image: linear-gradient(#ffefc2, #ffde85);
   border-radius: 8px;
