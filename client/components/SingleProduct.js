@@ -44,9 +44,13 @@ export class SingleProduct extends Component {
       await this.props.getCart(userId);
       const orderId = this.props.cart.id;
       console.log(orderId, "can get orderId after creating cart");
+      await this.props.addToCart(orderId, productId, quantity);
+      this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     } else {
       const orderId = this.props.cart.id;
       console.log(orderId, "can get order id if we already have cart");
+      await this.props.addToCart(orderId, productId, quantity);
+      this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     }
   }
 
