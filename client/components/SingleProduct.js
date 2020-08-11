@@ -35,28 +35,19 @@ export class SingleProduct extends Component {
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
     const userId = this.props.user.id;
-    console.log(userId, "able to get userId in props in addToCartHandler");
-    console.log("before creating cart", this.props.cart); // undefined
+    console.log("able to get userId in props in addToCartHandler", userId);
+    console.log("cart before creating cart", this.props.cart); // undefined
+
+    // create cart if we dont have one
     if (this.props.cart === undefined) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
-      console.log("after creating cart", this.props.cart);
+      const orderId = this.props.cart.id;
+      console.log(orderId, "can get orderId after creating cart");
+    } else {
+      const orderId = this.props.cart.id;
+      console.log(orderId, "can get order id if we already have cart");
     }
-
-    // const userId = window.localStorage.getItem("userId");
-    // const userId = 1; // hardcoded for testing
-    // await this.props.getCart(userId);
-    // if (this.props.cart == false) {
-    //   await this.props.createCart(userId);
-    //   await this.props.getCart(userId);
-    //   const orderId = this.props.cart[0].id;
-    //   await this.props.addToCart(orderId, productId, quantity);
-    // } else {
-    //   const orderId = this.props.cart[0].id;
-
-    //   await this.props.addToCart(orderId, productId, quantity);
-    // }
-    // console.log("this.props.cart", this.props.cart);
   }
 
   increase() {
