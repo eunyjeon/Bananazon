@@ -10,11 +10,11 @@ export class Cart extends Component {
     this.submitCartHandler = this.submitCartHandler.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getUser();
+  async componentDidMount() {
+    await this.props.getUser();
     if (this.props.user.id) {
       const userId = this.props.user.id;
-      this.props.getCart(userId);
+      await this.props.getCart(userId);
     }
   }
 
@@ -36,7 +36,9 @@ export class Cart extends Component {
           <h1>Your Shopping Cart! 🛒</h1>
           <div>
             {cart && cart.products
-              ? cart.products.map((product) => <div>{product.name}</div>)
+              ? cart.products.map((product) => (
+                  <div key={product.id}>{product.name}</div>
+                ))
               : `Your cart is empty`}
           </div>
           <NavLink to="/confirmationPage">

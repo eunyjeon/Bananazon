@@ -91,11 +91,11 @@ export class SingleProduct extends Component {
           <button type="button" size="small" onClick={this.decrease}>
             -
           </button>
-          <NavLink to="/cart">
+          {/* <NavLink to="/cart"> */}
           <button type="submit" onClick={this.addToCartHandler}>
             Add To Cart
           </button>
-          </NavLink>
+          {/* </NavLink> */}
         </div>
       </div>
     );
