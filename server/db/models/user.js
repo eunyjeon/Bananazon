@@ -44,31 +44,31 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING,
   },
-  // firstName: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  // lastName: {
-  //   type: Sequelize.STRING,
-  // },
-  // phoneNumber: {
-  //   type: Sequelize.BIGINT,
-  //   allowNull: false,
-  //   validate: {
-  //     isNumeric: true,
-  //   },
-  // },
-  // address: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  // },
-  // paymentInfo: {
-  //   type: Sequelize.BIGINT,
-  //   allowNull: false,
-  //   validate: {
-  //     isCreditCard: true,
-  //   },
-  // },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: Sequelize.STRING,
+  },
+  phoneNumber: {
+    type: Sequelize.BIGINT,
+    // allowNull: false,
+    validate: {
+      isNumeric: true,
+    },
+  },
+  address: {
+    type: Sequelize.STRING,
+    // allowNull: false,
+  },
+  paymentInfo: {
+    type: Sequelize.BIGINT,
+    // allowNull: false,
+    validate: {
+      isCreditCard: true,
+    },
+  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
