@@ -117,7 +117,7 @@ orderRouter.put("/:orderId", async (req, res, next) => { // I'm still working on
     const newOrderItem = await OrderItem.create({ productId, quantity, orderId }); // SHOULD ALSO INCLUDE ORDERID
     console.log(newOrderItem)
     const updatedOrder = await Order.findByPk(orderId, {
-      include: [{ model: OrderItem }]
+      include: [{ model: Product }]
     });
     console.log(updatedOrder)
 

@@ -13,6 +13,7 @@ const OrderItem = db.define('orderItem', {
   },
   subtotal: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
     validate: {
       min: 0,
     },
