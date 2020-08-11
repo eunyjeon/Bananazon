@@ -1,6 +1,8 @@
 const productRouter = require('express').Router();
 const Product = require('../db/models/product');
 const OrderItem = require('../db/models/orderItem');
+const { isAdmin } = require('../serverUtils');
+
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll();
@@ -28,8 +30,6 @@ productRouter.get('/cart', async (req, res, next) => {
     next(error);
   }
 });
-
-
 
 
 productRouter.get('/:id', async (req, res, next) => {
@@ -65,5 +65,22 @@ productRouter.put('/:id/decrease', async (req, res, next) => {
     next(error);
   }
 });
+
+
+
+
+// router.delete('/:id', isAdmin, async (req, res, next) => {
+//   const productId = +req.params.id;
+//   try {
+//     await Product.destroy({
+//       where: {
+//         id: productId,
+//       },
+//     });
+//     res.sendStatus(200);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = productRouter;

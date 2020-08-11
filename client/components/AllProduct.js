@@ -15,6 +15,7 @@ export class AllProduct extends React.Component {
 
   addToCartHandler(event) {
     console.log("Add To Cart Clicked!");
+
   }
 
   render() {

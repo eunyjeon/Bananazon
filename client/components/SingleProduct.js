@@ -27,6 +27,7 @@ export class SingleProduct extends Component {
 
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id);
+    console.log('LOCALSTORAGE STUFF', window.localStorage)
   }
   async addToCartHandler() {
     console.log("Add To Cart Clicked!");
@@ -34,8 +35,14 @@ export class SingleProduct extends Component {
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
     // const userId = window.localStorage.getItem("userId");
-    const userId = 1; // hardcoded for testing
-    await this.props.getCart(userId);
+
+    if (!this.props.user.id){
+      window.localStorage.setItem(productId, quantity)
+      console.log('LOCALSTORAGE STUFF', window.localStorage)
+      return 'your item is added to cart'
+    } 
+
+    await this.props.getCart(this.props.user.id);
     if (this.props.cart === {}) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
@@ -47,6 +54,9 @@ export class SingleProduct extends Component {
       await this.props.addToCart(orderId, productId, quantity);
     }
     console.log("this.props.cart", this.props.cart);
+
+
+
   }
 
   increase() {
@@ -109,6 +119,7 @@ export class SingleProduct extends Component {
 // Local state in SingleProduct for quantity, productId/info
 //
 const mapStateToProps = (state) => ({
+  user: state.user,
   product: state.product,
   cart: state.cart['0'],
 });
