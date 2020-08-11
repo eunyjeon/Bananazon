@@ -8,6 +8,7 @@ import SingleProduct from './components/SingleProduct';
 import AllProduct from './components/AllProduct';
 import Cart from './components/Cart';
 import ConfirmationPage from './components/ConfirmationPage';
+import CheckoutPage from './components/CheckoutPage';
 /**
  * COMPONENT
  */
@@ -32,6 +33,7 @@ class Routes extends Component {
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={CheckoutPage} />
         <Route path="/confirmationPage" component={ConfirmationPage} />
         {isLoggedIn && (
           <Switch>
