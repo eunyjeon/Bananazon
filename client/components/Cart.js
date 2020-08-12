@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getCartThunk, deleteFromCartThunk } from "../store/cart";
+import {
+  getCartThunk,
+  deleteFromCartThunk,
+  increaseCartThunk,
+  decreaseCartThunk,
+} from "../store/cart";
 import { me } from "../store/user";
 
 export class Cart extends Component {
   constructor() {
     super();
     this.submitCartHandler = this.submitCartHandler.bind(this);
-    this.buttonHandler = this.buttonHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
+    this.increaseHandler = this.increaseHandler.bind(this);
+    this.decreaseHandler = this.decreaseHandler.bind(this);
     this.state = {
       clickCount: 0, //added to re-render
     };
@@ -22,8 +28,23 @@ export class Cart extends Component {
       await this.props.getCart(userId);
     }
   }
-  buttonHandler() {
-    console.log("clicked item buttons");
+
+  increaseHandler(productId) {
+    console.log("increase!");
+    if (this.props.cart.id !== undefined) {
+      const orderId = this.props.cart.id;
+      this.props.increaseItem(productId, orderId);
+      this.setState({ ...this.state, clickCount: this.state.clickCount++ });
+    }
+  }
+
+  decreaseHandler(productId) {
+    console.log("decrease!");
+    if (this.props.cart.id !== undefined) {
+      const orderId = this.props.cart.id;
+      this.props.decreaseItem(productId, orderId);
+      this.setState({ ...this.state, clickCount: this.state.clickCount++ });
+    }
   }
 
   async deleteHandler(productId) {
@@ -62,14 +83,14 @@ export class Cart extends Component {
                     <button
                       type="button"
                       size="small"
-                      onClick={this.buttonHandler}
+                      onClick={() => this.increaseHandler(product.id)}
                     >
                       +
                     </button>
                     <button
                       type="button"
                       size="small"
-                      onClick={this.buttonHandler}
+                      onClick={() => this.decreaseHandler(product.id)}
                     >
                       -
                     </button>
@@ -105,6 +126,10 @@ const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(me()),
   deleteItem: (orderId, productId) =>
     dispatch(deleteFromCartThunk(orderId, productId)),
+  increaseItem: (productId, orderId) =>
+    dispatch(increaseCartThunk(productId, orderId)),
+  decreaseItem: (productId, orderId) =>
+    dispatch(decreaseCartThunk(productId, orderId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
