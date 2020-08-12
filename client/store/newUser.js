@@ -11,7 +11,8 @@ export const createUserThunk = (email, password, firstName, lastName) => async (
   try {
     const { data } = await axios.post(`/auth/signup`, { email, password, firstName, lastName });
     dispatch(createUser(data || {}));
-    history.push(`/users/${data.id}`);
+    // history.push(`/users/${data.id}`);
+    history.push('/products')
   } catch (error) {
     console.error(error);
   }

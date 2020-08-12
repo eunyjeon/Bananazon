@@ -8,10 +8,6 @@ class SignupForm extends Component {
     this.submitHandler = this.submitHandler.bind(this);
   }
 
-  componentDidMount() {
-    this.props.newUser();
-  }
-
   submitHandler(evt) {
     evt.preventDefault();
     const email = evt.target.email.value;
