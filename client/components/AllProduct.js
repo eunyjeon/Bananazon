@@ -34,7 +34,7 @@ export class AllProduct extends React.Component {
     console.log("able to get userId in props in addToCartHandler", userId);
     console.log("cart before creating cart", this.props.cart); // undefined
 
-    if (this.props.cart === undefined) {
+    if (!this.props.cart) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
       const orderId = this.props.cart.id;

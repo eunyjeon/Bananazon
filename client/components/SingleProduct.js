@@ -47,7 +47,7 @@ export class SingleProduct extends Component {
     console.log("cart before creating cart", this.props.cart); // undefined
 
     // create cart if we dont have one
-    if (this.props.cart === undefined) {
+    if (!this.props.cart) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
       const orderId = this.props.cart.id;
