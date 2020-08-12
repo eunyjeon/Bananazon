@@ -29,20 +29,25 @@ const { Order, OrderItem, Product } = require("../db/models");
 // this is to get the orderId of the cart!!!!!!!!!!!!!!!!!!
 orderRouter.get("/", async (req, res, next) => {
   try {
-    let userId = req.body;
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
 
-    const notPaidOrders = await Order.findAll({
+    let {userId} = req.body[0];
+
+    const notPaidOrders = await Order.findOne({
       where: {
         isPaid: false,
-        userId: userId,
+        userId,
       },
       include: [{ model: Product }],
     });
 
-    if (notPaidOrders.length < 1) {
+    if (!notPaidOrders) {
       res.json({});
     } else {
-      res.json(notPaidOrders[0]);
+      res.json(notPaidOrders);
     }
 
     // change to send orderId if there is one, else tell it send back undefined?
@@ -53,18 +58,21 @@ orderRouter.get("/", async (req, res, next) => {
 
 orderRouter.get("/cart/:userId", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     let userId = req.params.userId;
 
-    const notPaidOrders = await Order.findAll({
+    const notPaidOrders = await Order.findOne({
       where: {
         isPaid: false,
-        userId: userId,
+        userId,
       },
       include: [{ model: Product }],
     });
 
-    console.log(notPaidOrders);
-    if (notPaidOrders.length < 1) {
+    if (!notPaidOrders) {
       res.json(false);
     } else {
       res.json(notPaidOrders);
@@ -79,6 +87,10 @@ orderRouter.get("/cart/:userId", async (req, res, next) => {
 // To get the specific order instance/cart info
 orderRouter.get("/:orderId", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     const orderId = req.params.orderId;
     const order = await Order.findByPk(orderId, {
       include: [{ model: Product }],
@@ -92,10 +104,12 @@ orderRouter.get("/:orderId", async (req, res, next) => {
 // if (user's) order.isPaid is set to true && user clicks on addTo Cart
 orderRouter.post("/", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
     const userId = req.body;
-    console.log("body!!!!!!!!!!!!!!", req.body);
     const newOrder = await Order.create(userId);
-    console.log(newOrder, "newOrder from api post route");
     res.json(newOrder);
   } catch (error) {
     next(error);
@@ -103,21 +117,53 @@ orderRouter.post("/", async (req, res, next) => {
 });
 
 // updating products in OrderItems in specific order
-orderRouter.put("/:orderId", async (req, res, next) => {
+orderRouter.put("/:orderId/", async (req, res, next) => {
   try {
+    if (!req.user) {
+      const error = new Error(`Who are you?`);
+      return next(error);
+    }
+
     const orderId = req.params.orderId;
-    const updatingThisOrder = await Order.findByPk(orderId, {
+    const { productId, quantity } = req.body; // get back productId, and quantity
+
+    // I WANT TO KNOW IF THIS ORDERITEM EXISTS ALREADY
+    // YES, UPDATE, NO CREATE
+    const orderItemInfo = await OrderItem.findOrCreate({
+      where: { productId, orderId },
+      defaults: { productId, quantity, orderId },
+    });
+
+    if (quantity !== orderItemInfo[0].quantity){ 
+      orderItemInfo[0].quantity += quantity;
+      await orderItemInfo[0].save();
+    }
+
+    const updatedOrder = await Order.findByPk(orderId, {
       include: [{ model: Product }],
     });
-    console.log("put route in api, before ", updatingThisOrder);
-    const newInfo = req.body; // get back productId, and quantity
-    console.log("new info", newInfo);
-    const updatedOrder = await updatingThisOrder.update(newInfo);
-    console.log("put route in api, after", updatedOrder);
-    updatedOrder.save();
-    req.json(updatedOrder);
+
+    res.json(updatedOrder);
   } catch (error) {
     next(error);
+  }
+});
+
+orderRouter.delete("/:orderId/:productId", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    console.log(req.body, "req.body from delete routeeeeeee");
+    const productId = req.params.productId; // get back productId, and quantity
+    await OrderItem.destroy({
+      where: { productId, orderId },
+    });
+    // get cart again after delete
+    const order = await Order.findByPk(orderId, {
+      include: [{ model: Product }],
+    });
+    res.json(order); // should send back order instance with orderItem information
+  } catch (err) {
+    next(err);
   }
 });
 

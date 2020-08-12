@@ -7,6 +7,7 @@ import {
   decreaseQuantity,
 } from "../store/singleProduct";
 import { getCartThunk, createCartThunk, addToCartThunk } from "../store/cart";
+import { me } from "../store/user";
 
 export class SingleProduct extends Component {
   constructor() {
@@ -20,32 +21,45 @@ export class SingleProduct extends Component {
     this.decrease = this.decrease.bind(this);
     this.getSubtotal = this.getSubtotal.bind(this);
     this.addToCartHandler = this.addToCartHandler.bind(this);
-    this.cartChecker = this.cartChecker.bind(this);
   }
 
-  cartChecker() {}
-
-  componentDidMount() {
-    this.props.getSingleProduct(this.props.match.params.id);
+  async componentDidMount() {
+    await this.props.getSingleProduct(this.props.match.params.id);
+    await this.props.getUser();
+    if (this.props.user) {
+      await this.props.getCart(this.props.user.id);
+    }
   }
   async addToCartHandler() {
     console.log("Add To Cart Clicked!");
-
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
-    const userId = 1;
-    await this.props.getCart(userId);
-    if (this.props.cart == false) {
+    // const userId = window.localStorage.getItem("userId");
+
+    if (!this.props.user.id) {
+      window.localStorage.setItem(productId, quantity);
+      console.log("LOCALSTORAGE STUFF", window.localStorage);
+      return "your item is added to cart";
+    }
+
+    const userId = this.props.user.id;
+    console.log("able to get userId in props in addToCartHandler", userId);
+    console.log("cart before creating cart", this.props.cart); // undefined
+
+    // create cart if we dont have one
+    if (this.props.cart === undefined) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
-      const orderId = this.props.cart[0].id;
+      const orderId = this.props.cart.id;
+      console.log(orderId, "can get orderId after creating cart");
       await this.props.addToCart(orderId, productId, quantity);
+      this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     } else {
-      const orderId = this.props.cart[0].id;
-
+      const orderId = this.props.cart.id;
+      console.log(orderId, "can get order id if we already have cart");
       await this.props.addToCart(orderId, productId, quantity);
+      this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     }
-    console.log("this.props.cart", this.props.cart);
   }
 
   increase() {
@@ -108,6 +122,7 @@ export class SingleProduct extends Component {
 // Local state in SingleProduct for quantity, productId/info
 //
 const mapStateToProps = (state) => ({
+  user: state.user,
   product: state.product,
   cart: state.cart,
 });
@@ -115,6 +130,7 @@ const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(getSingleProductThunk(id)),
   increaseQuantity: (id) => dispatch(increaseQuantity(id)),
   decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
+  getUser: () => dispatch(me()),
   getCart: (userId) => dispatch(getCartThunk(userId)),
   createCart: (userId) => dispatch(createCartThunk(userId)),
   addToCart: (orderId, productId, quantity) =>

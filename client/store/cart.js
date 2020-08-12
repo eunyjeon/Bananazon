@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 //action type
-const GET_CART = "GET_CART";
-const CREATE_CART = "CREATE_CART";
-const ADD_TO_CART = "ADD_TO_CART";
+const GET_CART = 'GET_CART';
+const CREATE_CART = 'CREATE_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const DELETE_FROM_CART = 'DELETE_FROM_CART';
 
 // initial state
 const defaultCart = {};
@@ -23,12 +24,14 @@ const defaultCart = {};
 // action creator
 const getCart = (cart) => ({ type: GET_CART, cart });
 const createCart = (cart) => ({ type: CREATE_CART, cart });
-const addToCart = (product) => ({ type: ADD_TO_CART, product });
+const addToCart = (cart) => ({ type: ADD_TO_CART, cart });
+const deleteFromCart = (cart) => ({ type: DELETE_FROM_CART, cart });
 
 // getCart thunk
 export const getCartThunk = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/orders/cart/${userId}`);
+    console.log(res.data);
     dispatch(getCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -38,7 +41,7 @@ export const getCartThunk = (userId) => async (dispatch) => {
 //createCart Thunk
 export const createCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/orders", { userId: userId });
+    const res = await axios.post('/api/orders', { userId: userId });
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -54,7 +57,18 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
       productId,
       quantity,
     });
+    console.log('console log res from add To cart thunk', res.data);
     dispatch(addToCart(res.data) || defaultCart);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteFromCartThunk = (orderId, productId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/orders/${orderId}/${productId}`);
+    console.log('res from deleteFromCartThunk', res.data);
+    dispatch(deleteFromCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
   }
@@ -68,10 +82,9 @@ export default function cartReducer(state = defaultCart, action) {
     case CREATE_CART:
       return action.cart;
     case ADD_TO_CART:
-      return {
-        ...state,
-        products: [...products, action.product],
-      };
+      return action.cart;
+    case DELETE_FROM_CART:
+      return action.cart;
     default:
       return state;
   }
