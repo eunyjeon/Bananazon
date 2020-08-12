@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 //action type
-const GET_CART = "GET_CART";
-const CREATE_CART = "CREATE_CART";
-const ADD_TO_CART = "ADD_TO_CART";
-const DELETE_FROM_CART = "DELETE_FROM_CART";
+const GET_CART = 'GET_CART';
+const CREATE_CART = 'CREATE_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const DELETE_FROM_CART = 'DELETE_FROM_CART';
 
 // initial state
 const defaultCart = {};
@@ -41,7 +41,7 @@ export const getCartThunk = (userId) => async (dispatch) => {
 //createCart Thunk
 export const createCartThunk = (userId) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/orders", { userId: userId });
+    const res = await axios.post('/api/orders', { userId: userId });
     dispatch(createCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -57,7 +57,7 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
       productId,
       quantity,
     });
-    console.log("console log res from add To cart thunk", res.data);
+    console.log('console log res from add To cart thunk', res.data);
     dispatch(addToCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);
@@ -67,7 +67,7 @@ export const addToCartThunk = (orderId, productId, quantity) => async (
 export const deleteFromCartThunk = (orderId, productId) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/orders/${orderId}/${productId}`);
-    console.log("res from deleteFromCartThunk", res.data);
+    console.log('res from deleteFromCartThunk', res.data);
     dispatch(deleteFromCart(res.data) || defaultCart);
   } catch (err) {
     console.error(err);

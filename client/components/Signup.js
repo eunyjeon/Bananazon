@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createUserThunk } from "../store/newUser";
@@ -35,7 +36,6 @@ class SignupForm extends Component {
             />
           </label>
 
-
           <label>
             Password
             <input
@@ -64,18 +64,17 @@ class SignupForm extends Component {
               placeholder="Last Name"
               required
             />
-            </label>
+          </label>
           <input type="submit" value="Sign Up" />
         </form>
       </div>
-    )
+    );
   }
 }
 
 const mapDispatch = (dispatch) => ({
-  newUser: (email,password, firstName, lastName) => dispatch(createUserThunk(email,password, firstName, lastName))
-})
+  newUser: (email, password, firstName, lastName) =>
+    dispatch(createUserThunk(email, password, firstName, lastName)),
+});
 
-export default connect (null, mapDispatch) (SignupForm)
-
-
+export default connect(null, mapDispatch)(SignupForm);
