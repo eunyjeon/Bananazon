@@ -6,7 +6,8 @@ const userSeed = [
     lastName: "Favill",
     phoneNumber: "2293287293",
     address: "9441 Schurz Court",
-    paymentInfo: "3547642474116160"
+    paymentInfo: "3547642474116160",
+    isAdmin: true
   },
   {
     email: "nskylett1@nifty.com",
@@ -271,4 +272,4 @@ const userSeed = [
   }
 ];
 
-module.exports = userSeed 
+module.exports = userSeed

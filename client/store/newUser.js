@@ -18,7 +18,8 @@ export const createUserThunk = (email, password, firstName, lastName) => async (
       lastName,
     });
     dispatch(createUser(data || {}));
-    history.push(`/users/${data.id}`);
+    history.push('/products');
+    // history.push(`/users/${data.id}`);
   } catch (error) {
     console.error(error);
   }
