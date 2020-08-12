@@ -41,7 +41,7 @@ export class AllProduct extends React.Component {
       console.log(orderId, "can get orderId after creating cart");
       await this.props.addToCart(orderId, productId, quantity);
       const count = this.state.addToCartCount + 1;
-
+      // working
       this.setState({
         ...this.state,
         addToCartCount: count,
