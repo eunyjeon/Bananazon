@@ -44,7 +44,7 @@ const AuthForm = (props) => {
     </div>
   );
 };
-// <----- navlink on line 38 gives a weird 500 status when redirecting to /products ¯\_(ツ)_/¯ ------> //
+// <----- navlink on line 38 gives a weird 500 status when redirecting to /products ¯\_(ツ)_/¯ /signup currently doesn't go anywhere on the working branch ------> //
 /**
  * CONTAINER
  *   Note that we have two different sets of 'mapStateToProps' functions -
