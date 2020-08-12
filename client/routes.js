@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Login, UserHome } from './components';
+import { Login, Signup, UserHome } from './components';
 import { me } from './store';
 import SingleProduct from './components/SingleProduct';
 import AllProduct from './components/AllProduct';
 import Cart from './components/Cart';
 import ConfirmationPage from './components/ConfirmationPage';
 import CheckoutPage from './components/CheckoutPage';
-import SignupForm from './components/Signup'
 /**
  * COMPONENT
  */
@@ -28,10 +27,11 @@ class Routes extends Component {
       // );
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignupForm} />
+        {/* <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} /> */}
         <Route exact path="/products" component={AllProduct} />
         <Route path="/products/:id" component={SingleProduct} />
+        <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={CheckoutPage} />
         <Route path="/confirmationPage" component={ConfirmationPage} />

@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 //action type
-const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 
 // initial state
 const defaultProducts = [];
@@ -13,7 +13,7 @@ const getAllProducts = (products) => ({ type: GET_ALL_PRODUCTS, products });
 
 export const allProductThunk = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/products");
+    const res = await axios.get('/api/products');
     dispatch(getAllProducts(res.data || defaultProducts));
   } catch (err) {
     console.error(err);
