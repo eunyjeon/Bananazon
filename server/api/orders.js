@@ -130,6 +130,50 @@ orderRouter.put("/:orderId/", async (req, res, next) => {
   }
 });
 
+orderRouter.put("/:orderId/increase", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const { productId } = req.body; // get back productId, and quantity
+
+    const orderItemInfo = await OrderItem.findAll({
+      where: { productId, orderId },
+    });
+
+    orderItemInfo[0].quantity += 1;
+    await orderItemInfo[0].save();
+
+    const updatedOrder = await Order.findByPk(orderId, {
+      include: [{ model: Product }],
+    });
+
+    res.json(updatedOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+orderRouter.put("/:orderId/decrease", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const { productId } = req.body; // get back productId, and quantity
+
+    const orderItemInfo = await OrderItem.findAll({
+      where: { productId, orderId },
+    });
+
+    orderItemInfo[0].quantity -= 1;
+    await orderItemInfo[0].save();
+
+    const updatedOrder = await Order.findByPk(orderId, {
+      include: [{ model: Product }],
+    });
+
+    res.json(updatedOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
 orderRouter.delete("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
