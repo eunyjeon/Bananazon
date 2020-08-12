@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import {
   getSingleProductThunk,
   increaseQuantity,
   decreaseQuantity,
-} from "../store/singleProduct";
-import { getCartThunk, createCartThunk, addToCartThunk } from "../store/cart";
-import { me } from "../store/user";
+} from '../store/singleProduct';
+import { getCartThunk, createCartThunk, addToCartThunk } from '../store/cart';
+import { me } from '../store/user';
 
 export class SingleProduct extends Component {
   constructor() {
@@ -31,32 +31,32 @@ export class SingleProduct extends Component {
     }
   }
   async addToCartHandler() {
-    console.log("Add To Cart Clicked!");
+    console.log('Add To Cart Clicked!');
     const productId = this.props.match.params.id;
     const quantity = this.state.quantity;
     // const userId = window.localStorage.getItem("userId");
 
     if (!this.props.user.id) {
       window.localStorage.setItem(productId, quantity);
-      console.log("LOCALSTORAGE STUFF", window.localStorage);
-      return "your item is added to cart";
+      console.log('LOCALSTORAGE STUFF', window.localStorage);
+      return 'your item is added to cart';
     }
 
     const userId = this.props.user.id;
-    console.log("able to get userId in props in addToCartHandler", userId);
-    console.log("cart before creating cart", this.props.cart); // undefined
+    console.log('able to get userId in props in addToCartHandler', userId);
+    console.log('cart before creating cart', this.props.cart); // undefined
 
     // create cart if we dont have one
     if (this.props.cart === undefined) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
       const orderId = this.props.cart.id;
-      console.log(orderId, "can get orderId after creating cart");
+      console.log(orderId, 'can get orderId after creating cart');
       await this.props.addToCart(orderId, productId, quantity);
       this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     } else {
       const orderId = this.props.cart.id;
-      console.log(orderId, "can get order id if we already have cart");
+      console.log(orderId, 'can get order id if we already have cart');
       await this.props.addToCart(orderId, productId, quantity);
       this.setState({ ...this.state, quantity: 0, subtotal: 0 });
     }
@@ -82,7 +82,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    console.log("props in singleproduct", this.props);
+    console.log('props in singleproduct', this.props);
     const { name, imageUrl, description, category, price } = this.props.product;
     const quantity = this.state.quantity;
     const subtotal = this.state.subtotal;

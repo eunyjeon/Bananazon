@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { getCartThunk, deleteFromCartThunk } from "../store/cart";
-import { me } from "../store/user";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { getCartThunk, deleteFromCartThunk } from '../store/cart';
+import { me } from '../store/user';
 
 export class Cart extends Component {
   constructor() {
@@ -20,26 +20,26 @@ export class Cart extends Component {
     }
   }
   buttonHandler() {
-    console.log("clicked item buttons");
+    console.log('clicked item buttons');
   }
 
   async deleteHandler(productId) {
-    console.log("deleting");
+    console.log('deleting');
 
     if (this.props.cart.id !== undefined) {
       const orderId = this.props.cart.id;
-      console.log("product in delete", productId);
+      console.log('product in delete', productId);
       await this.props.deleteItem(orderId, productId);
     }
     // const orderId = this.props.cart.id;
     // await this.props.deleteItem(orderId, productId);
   }
   submitCartHandler(event) {
-    console.log("Submit Cart Clicked!");
+    console.log('Submit Cart Clicked!');
   }
 
   render() {
-    console.log("cart props", this.props);
+    console.log('cart props', this.props);
     const cart = this.props.cart; // array like object
     if (cart && cart !== undefined) {
       const products = cart.products;
@@ -82,8 +82,8 @@ export class Cart extends Component {
           </div>
           <NavLink to="/checkout">
             <button type="submit" onClick={this.submitCartHandler}>
-              {" "}
-              Proceed to Checkout!{" "}
+              {' '}
+              Proceed to Checkout!{' '}
             </button>
           </NavLink>
         </div>

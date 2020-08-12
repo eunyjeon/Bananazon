@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { allProductThunk } from "../store/allProduct";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { allProductThunk } from '../store/allProduct';
 // import { useToasts } from 'react-toast-notifications';
 // import { ToastDemo } from './Toast';
-import { getCartThunk, createCartThunk, addToCartThunk } from "../store/cart";
-import { me } from "../store/user";
+import { getCartThunk, createCartThunk, addToCartThunk } from '../store/cart';
+import { me } from '../store/user';
 
 export class AllProduct extends React.Component {
   constructor() {
@@ -27,18 +27,18 @@ export class AllProduct extends React.Component {
   }
 
   async addToCartHandler(productId) {
-    console.log("Add To Cart Clicked for product id:", productId);
+    console.log('Add To Cart Clicked for product id:', productId);
     const quantity = 1;
 
     const userId = this.props.user.id;
-    console.log("able to get userId in props in addToCartHandler", userId);
-    console.log("cart before creating cart", this.props.cart); // undefined
+    console.log('able to get userId in props in addToCartHandler', userId);
+    console.log('cart before creating cart', this.props.cart); // undefined
 
     if (this.props.cart === undefined) {
       await this.props.createCart(userId);
       await this.props.getCart(userId);
       const orderId = this.props.cart.id;
-      console.log(orderId, "can get orderId after creating cart");
+      console.log(orderId, 'can get orderId after creating cart');
       await this.props.addToCart(orderId, productId, quantity);
       const count = this.state.addToCartCount + 1;
       // working
@@ -48,7 +48,7 @@ export class AllProduct extends React.Component {
       });
     } else {
       const orderId = this.props.cart.id;
-      console.log(orderId, "can get order id if we already have cart");
+      console.log(orderId, 'can get order id if we already have cart');
       await this.props.addToCart(orderId, productId, quantity);
       const count = this.state.addToCartCount + 1;
       this.setState({
@@ -57,7 +57,7 @@ export class AllProduct extends React.Component {
       });
     }
 
-    alert("Added to Cart"); // will hopefully be toast notification
+    alert('Added to Cart'); // will hopefully be toast notification
   }
 
   render() {
@@ -78,7 +78,7 @@ export class AllProduct extends React.Component {
               type="button"
               onClick={() => this.addToCartHandler(product.id)}
             >
-              {" "}
+              {' '}
               Add To Cart
             </button>
           </div>
