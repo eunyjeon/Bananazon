@@ -10,6 +10,9 @@ export class Cart extends Component {
     this.submitCartHandler = this.submitCartHandler.bind(this);
     this.buttonHandler = this.buttonHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
+    this.state = {
+      clickCount: 0, //added to re-render
+    };
   }
 
   async componentDidMount() {
