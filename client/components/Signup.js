@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import { createUserThunk } from "../store/newUser";
 
 class SignupForm extends Component {
-  constructor() {
-    super();
-    this.submitHandler = this.submitHandler.bind(this);
+  constructor () {
+    super()
+    this.submitHandler = this.submitHandler.bind(this)
   }
 
   submitHandler(evt) {
-    evt.preventDefault();
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
-    const firstName = evt.target.firstName.value;
-    const lastName = evt.target.lastName.value;
-    this.props.newUser(email, password, firstName, lastName);
+    evt.preventDefault()
+    const email = evt.target.email.value
+    const password = evt.target.password.value
+    const firstName = evt.target.firstName.value
+    const lastName = evt.target.lastName.value
+    this.props.newUser(email, password, firstName, lastName)
   }
 
   render() {
@@ -23,7 +23,12 @@ class SignupForm extends Component {
         <form onSubmit={this.submitHandler}>
           <label>
             Email
-            <input type="email" name="email" placeholder="Email" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
           </label>
 
           <label>
