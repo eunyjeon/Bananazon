@@ -12,7 +12,7 @@ productRouter.get('/', async (req, res, next) => {
   }
 });
 
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 // sending back the products information requested for the cart compoenent - visitor - local storage
 // maybe move to differnet file
 productRouter.get('/cart', async (req, res, next) => {
@@ -21,16 +21,15 @@ productRouter.get('/cart', async (req, res, next) => {
     const products = await Product.findAll({
       where: {
         id: {
-          [Op.or]: arrOfProductIds
-        }
-      }
+          [Op.or]: arrOfProductIds,
+        },
+      },
     });
     res.json(products);
   } catch (error) {
     next(error);
   }
 });
-
 
 productRouter.get('/:id', async (req, res, next) => {
   try {
@@ -65,9 +64,6 @@ productRouter.put('/:id/decrease', async (req, res, next) => {
     next(error);
   }
 });
-
-
-
 
 // router.delete('/:id', isAdmin, async (req, res, next) => {
 //   const productId = +req.params.id;
