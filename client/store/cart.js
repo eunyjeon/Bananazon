@@ -5,7 +5,8 @@ const GET_CART = "GET_CART";
 const CREATE_CART = "CREATE_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
-
+const CART_INCREASE = "CART_INCREASE";
+const CART_DECREASE = "CART_DECREASE";
 // initial state
 const defaultCart = {};
 
@@ -26,6 +27,8 @@ const getCart = (cart) => ({ type: GET_CART, cart });
 const createCart = (cart) => ({ type: CREATE_CART, cart });
 const addToCart = (cart) => ({ type: ADD_TO_CART, cart });
 const deleteFromCart = (cart) => ({ type: DELETE_FROM_CART, cart });
+const increaseCart = (cart) => ({ type: CART_INCREASE, cart });
+const decreaseCart = (cart) => ({ type: CART_DECREASE, cart });
 
 // getCart thunk
 export const getCartThunk = (userId) => async (dispatch) => {
@@ -74,6 +77,28 @@ export const deleteFromCartThunk = (orderId, productId) => async (dispatch) => {
   }
 };
 
+export const increaseCartThunk = (productId, orderId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/orders/${orderId}/increase`, {
+      productId,
+    });
+    dispatch(increaseCart(res.data) || defaultCart);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const decreaseCartThunk = (productId, orderId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/orders/${orderId}/decrease`, {
+      productId,
+    });
+    dispatch(decreaseCart(res.data) || defaultCart);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // reducer
 export default function cartReducer(state = defaultCart, action) {
   switch (action.type) {
@@ -84,6 +109,10 @@ export default function cartReducer(state = defaultCart, action) {
     case ADD_TO_CART:
       return action.cart;
     case DELETE_FROM_CART:
+      return action.cart;
+    case CART_INCREASE:
+      return action.cart;
+    case CART_DECREASE:
       return action.cart;
     default:
       return state;
