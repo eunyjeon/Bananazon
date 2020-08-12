@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
+import { NavLink } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -32,10 +33,18 @@ const AuthForm = (props) => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
       <a href="/auth/google">{displayName} with Google</a>
+      <div>
+        <div>
+          <p>Don't Have an account? Click bellow to signUp</p>
+          <NavLink to="/signup">Click me to signup!</NavLink>
+        </div>
+        <p>Want to see what we've got? Click bellow...</p>
+        <NavLink to="/products">All Products</NavLink>
+      </div>
     </div>
   );
 };
-
+// <----- navlink on line 38 gives a weird 500 status when redirecting to /products ¯\_(ツ)_/¯ ------> //
 /**
  * CONTAINER
  *   Note that we have two different sets of 'mapStateToProps' functions -
@@ -73,7 +82,6 @@ const mapDispatch = (dispatch) => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 // export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
-
 
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
